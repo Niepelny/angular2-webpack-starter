@@ -2,7 +2,9 @@ import {
   Component,
   OnInit,
   OnChanges,
-  SimpleChanges
+  SimpleChanges,
+  Input,
+  Output
 } from '@angular/core';
 
 import { ElementRef} from 'angular2/core';
@@ -10,7 +12,7 @@ import { FormsModule }   from '@angular/forms';
 import { AppState } from '../../app.service';
 import { Title } from './title';
 import { XLargeDirective } from './x-large';
-import { ICourses } from '../courses';
+import { FindCourseComponent } from './findCourseComponent';
 
 @Component({
   // The selector is what angular internally uses
@@ -27,10 +29,10 @@ import { ICourses } from '../courses';
   templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
-
   // Set our default values
   public localState = { value: '' };
   public coursesList;
+  public courses = {};
   // TypeScript public modifiers
   constructor(
     public appState: AppState,
@@ -39,7 +41,14 @@ export class HomeComponent implements OnInit {
     this.coursesList = [];
   }
 
+  public onSubmit() {
+    console.log(this.courses);
+  }
+
   public ngOnInit() {
+    this.courses = {
+      name: 'xcv'
+    }
     this.coursesList = [{
       id: 1,
       name: 'kurs 1',

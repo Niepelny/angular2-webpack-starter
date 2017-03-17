@@ -1,17 +1,11 @@
 <div class="home">
 
   <div class="courses-navigation">
-    <form class="courses-navigation__find"  (ngSubmit)="onSubmit()" >
-      <input
-        type="text" name="courses.name"
-        [(ngModel)]="courses.name"
-        name="name"
-        #name="ngModel">
-      <find-course [curseName]="courses.name"></find-course>
-      <button type="submit" class="courses-navigation__find__btn" name="find">Find</button>
+    <form class="courses-navigation__find" action="index.html" method="post">
+      <input type="text" name="" class="courses-navigation__find__input" value="Course name">
+      <button type="button" class="courses-navigation__find__btn" name="find">Find</button>
     </form>
     <button type="button" class="courses-navigation__new-course" name="AddCurse">Add Course</button>
-
   </div>
 
   <hr>
