@@ -18,9 +18,7 @@ import { CanActivate, Router, ActivatedRoute } from '@angular/router';
   // where, in this case, selector is the string 'home'
   selector: 'login',  // <home></home>
   // We need to tell Angular's Dependency Injection which providers are in our app.
-  providers: [
-    LoginService
-  ],
+  providers: [],
   // Our list of styles in our component. We may add more to compose many styles together
   styleUrls: [ './login.component.scss' ],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler

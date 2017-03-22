@@ -67,3 +67,40 @@
     }
   }
 }
+
+.confirm {
+  background-color: rgba(0, 188, 212, 0.4);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+
+  &__alert {
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    height: 200px;
+    justify-content: center;
+    margin: auto;
+    width: 400px;
+
+    &__text {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      margin: auto;
+      min-height: 100px;
+    }
+  }
+}
+
+.hide {
+  display: none;
+}

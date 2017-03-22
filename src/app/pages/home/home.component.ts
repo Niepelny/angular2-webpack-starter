@@ -35,6 +35,8 @@ export class HomeComponent implements OnInit {
   public localState = { value: '' };
   public coursesList;
   public courses = {};
+  public isShowAlert = false;
+  private courseTodelete;
   // TypeScript public modifiers
   constructor(
     public appState: AppState,
@@ -44,29 +46,30 @@ export class HomeComponent implements OnInit {
     this.coursesList = [];
   }
 
-  public onSubmit() {
-    console.log(this.courses);
-  }
-
   public submitState(value: string) {
-    console.log('submitState', value);
     this.appState.set('value', value);
     this.localState.value = '';
   }
 
-  public editCurse(id: number) {
-    console.log('edit id: ' , id);
-  }
-
   public deleteCurse(id: number) {
-    console.log('delete id: ' , id);
-    this.coursesService.deleteCourse(id);
+    this.isShowAlert = true;
+    this.courseTodelete = id;
   }
 
   public ngOnInit() {
     this.coursesList = this.coursesService.getCourses();
     console.log('hello `Home` component');
     // this.title.getData().subscribe(data => this.data = data);
+  }
+
+  public confirmDelete() {
+    this.coursesService.deleteCourse(this.courseTodelete);
+    this.isShowAlert = false;
+
+  }
+
+  public cancelDelete () {
+    this.isShowAlert = false;
   }
 
   private logData(msg: string) {

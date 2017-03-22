@@ -31,6 +31,15 @@
       </div>
     </div>
   </div>
-
-
+  <div *ngIf="isShowAlert" class="confirm">
+    <div class="confirm__alert">
+      <div class="confirm__alert__text">
+        Are you shure?
+        <div class="confirm__alert__buttons">
+          <button href="#" class="btn" (click)="confirmDelete()">Yes</button>
+          <button href="#" class="btn" (click)="cancelDelete()">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

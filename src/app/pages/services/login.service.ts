@@ -27,17 +27,19 @@ export class LoginService {
         data.password === value.password
       ) {
         this.setlocalStorageUser = value;
+        this.loggedUser = { name: value.name };
         return true;
       }
       return false;
     }
   }
 
-  public get isLoggedIn () {
+  public isLoggedIn () {
     return !!this.loggedUser;
   }
 
   public logOut() {
+    this.loggedUser = '';
     localStorage.removeItem('currentUser');
   }
 

@@ -14,7 +14,6 @@ import { CanActivate, Router, ActivatedRoute } from '@angular/router';
   selector: 'app-header',  // <home></home>
   // We need to tell Angular's Dependency Injection which providers are in our app.
   providers: [
-    LoginService
   ],
   // Our list of styles in our component. We may add more to compose many styles together
   styleUrls: [ './header.component.scss' ],
@@ -34,15 +33,15 @@ export class HeaderComponent implements OnInit {
     public appState: AppState
   ) {};
 
-  public isLogged() {
-    return this.loginService.isLoggedIn;
+  public get isLogged(): boolean {
+    return this.loginService.isLoggedIn();
   }
 
   public logOut() {
     this.loginService.logOut();
   }
   public ngOnInit() {
-    console.log('hello `Home` component');
+    console.log('hello `header` component');
     // this.title.getData().subscribe(data => this.data = data);
   }
 
