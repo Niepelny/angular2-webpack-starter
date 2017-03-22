@@ -3,14 +3,15 @@ import {
   OnInit,
   OnChanges,
   SimpleChanges,
+  EventEmitter,
   Output
 } from '@angular/core';
-
-import { ElementRef} from 'angular2/core';
 import { FormsModule }   from '@angular/forms';
 import { AppState } from '../../app.service';
-import { XLargeDirective } from './x-large';
-import { CoursesComponent } from '../courses';
+import { LoginService } from '../services/login.service';
+import { HeaderComponent } from '../header/header.component';
+import { CanActivate, Router, ActivatedRoute } from '@angular/router';
+
 @Component({
   // The selector is what angular internally uses
   // for `document.querySelectorAll(selector)` in our index.html
@@ -18,41 +19,37 @@ import { CoursesComponent } from '../courses';
   selector: 'login',  // <home></home>
   // We need to tell Angular's Dependency Injection which providers are in our app.
   providers: [
+    LoginService
   ],
   // Our list of styles in our component. We may add more to compose many styles together
-  styleUrls: [ './home.component.scss' ],
+  styleUrls: [ './login.component.scss' ],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
-  templateUrl: './home.component.html'
+  templateUrl: './login.component.html'
 })
-export class HomeComponent implements OnInit {
+export class LoginComponent implements OnInit {
   // Set our default values
   public localState = { value: '' };
+  public user = {
+    name: '',
+    password: '',
+  };
+
   // TypeScript public modifiers
   constructor(
-    public appState: AppState
+    public appState: AppState,
+    public loginService: LoginService,
+    private router: Router
   ) {}
 
+  public onSubmit(e) {
+    e.preventDefault();
+    const result = this.loginService.checkLogin(this.user);
+    this.router.navigate(['/']);
+    return false;
+  }
+
   public ngOnInit() {
-    console.log('hello `Home` component');
+    console.log('hello `login` component');
     // this.title.getData().subscribe(data => this.data = data);
   }
-
-  private logData(msg: string) {
-    console.log(msg);
-  }
-
-  public submitState(value: string) {
-    console.log('submitState', value);
-    this.appState.set('value', value);
-    this.localState.value = '';
-  }
-
-  public editCurse(id: number) {
-    console.log('edit id: ' , id);
-  }
-
-  public deleteCurse(id: number) {
-    console.log('delete id: ' , id);
-  }
-
 }

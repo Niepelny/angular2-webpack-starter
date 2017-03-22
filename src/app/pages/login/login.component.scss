@@ -2,111 +2,37 @@
 @import "../../../styles/variables";
 @import '../../../styles/fonts';
 
-.courses__top {
-  display: flex;
-  justify-content: space-between;
-}
 
-.courses-navigation {
+.login {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  margin: $globalMarginBig 0;
 
   @media (min-width: $minTabletWidth) {
-    flex-direction: row;
+    margin: 0 auto;
+    max-width: 400px;
   }
 
-  &__new-course,
-  &__find {
-    margin-bottom: 5px;
-  }
-
-  &__find {
+  &__form {
     display: flex;
-    justify-content: space-between;
-
-    &__input {
-      border-radius: $globalBorderRadius;
-      border: 1px solid $borderColor;
-      flex-grow: 1;
-      padding: 10px 15px;
-      margin-right: 5px;
-    }
-
-    &__btn {
-      padding: 10px 15px;
-    }
-  }
-
-  &__new-course {
-    background-color: $primaryColor;
-    border-radius: $globalBorderRadius;
-    border: 1px solid $borderColor;
-    padding: 10px 15px;
+    flex-direction: column;
+    width: 100%;
 
     @media (min-width: $minTabletWidth) {
-      padding: 15px 20px;
+      width: 100%;
     }
+
+    &__button {
+      @media (min-width: $minTabletWidth) {
+        width: 50%;
+      }
+    }
+
   }
 }
 
-.courses {
-  &__list {
-    border-radius: $globalBorderRadius;
-    border: 1px solid $borderColor;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: $globalMarginDistance;
-    padding: $globalPadding;
-    flex-direction: column;
-
-    @media (min-width: $minTabletWidth) {
-      flex-direction: row;
-    }
-  }
-
-  &__edition {
-    display: flex;
-    flex-direction: column;
-  }
-
-  &__label {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 5px;
-    flex-direction: column;
-
-    @media (min-width: $minTabletWidth) {
-      flex-direction: row;
-    }
-
-    &__name,
-    &__time,
-    &__date {
-      margin-bottom: 5px;
-
-      @media (min-width: $minTabletWidth) {
-        margin-bottom: 0;
-      }
-    }
-
-    &__name {
-      &--id {
-        font-family: $baloo;
-        font-size: 20px;
-        line-height: 20px;
-      }
-    }
-  }
-
-  &__description {
-    flex-grow: 1;
-    margin-bottom: 15px;
-    text-align: justify;
-
-    @media (min-width: $minTabletWidth) {
-      margin-bottom: 0;
-      margin-right: 15px;
-    }
-  }
+.form-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }

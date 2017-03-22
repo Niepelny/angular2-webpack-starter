@@ -1,9 +1,8 @@
-interface ICousrses {
+export interface ICourse {
   id: number;
   name: string;
   time: string;
   date: string;
   description: string;
-  editCourses(r: string);
-  deleteCourses(r: string);
+  editCourses();
 }

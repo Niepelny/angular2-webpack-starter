@@ -7,49 +7,6 @@
   justify-content: space-between;
 }
 
-.courses-navigation {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  @media (min-width: $minTabletWidth) {
-    flex-direction: row;
-  }
-
-  &__new-course,
-  &__find {
-    margin-bottom: 5px;
-  }
-
-  &__find {
-    display: flex;
-    justify-content: space-between;
-
-    &__input {
-      border-radius: $globalBorderRadius;
-      border: 1px solid $borderColor;
-      flex-grow: 1;
-      padding: 10px 15px;
-      margin-right: 5px;
-    }
-
-    &__btn {
-      padding: 10px 15px;
-    }
-  }
-
-  &__new-course {
-    background-color: $primaryColor;
-    border-radius: $globalBorderRadius;
-    border: 1px solid $borderColor;
-    padding: 10px 15px;
-
-    @media (min-width: $minTabletWidth) {
-      padding: 15px 20px;
-    }
-  }
-}
-
 .courses {
   &__list {
     border-radius: $globalBorderRadius;

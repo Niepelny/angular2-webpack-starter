@@ -26,12 +26,13 @@ import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 import { HomeComponent } from './pages/home';
-import { CoursesComponent } from './pages/courses';
+import { CourseComponent } from './pages/courses';
 import { HeaderComponent } from './pages/header';
 import { FooterComponent } from './pages/footer';
+import { LoginComponent } from './pages/login';
+import { CourseNavigationComponent } from './pages/coursesnavigation';
 import { NoContentComponent } from './no-content';
 import { XLargeDirective } from './pages/home/x-large';
-console.log(CoursesComponent);
 import '../styles/styles.scss';
 import '../styles/headings.css';
 
@@ -56,9 +57,11 @@ type StoreType = {
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    CoursesComponent,
     FooterComponent,
+    LoginComponent,
+    CourseComponent,
     NoContentComponent,
+    CourseNavigationComponent,
     XLargeDirective
   ],
   imports: [ // import Angular's modules

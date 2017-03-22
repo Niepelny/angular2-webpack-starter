@@ -1,0 +1,84 @@
+<div class="course">
+  <form class="course-form" (ngSubmit)="createCourse(courseForm)" #courseForm="ngForm" action="index.html" method="post">
+
+    <span class="custom-span" *ngIf="id">
+      <label
+        for="courseId"
+        class="custom-span__label" >
+          Course ID:
+      </label>
+      <input
+        id="courseId"
+        type="text"
+        class="custom-span__input"
+        name="id"
+        [(ngModel)]="id"
+        value=""
+        disabled
+        ngModel>
+    </span>
+    <span class="custom-span">
+      <label
+        for="courseName"
+        class="custom-span__label" >
+          Name:
+      </label>
+      <input
+        id="courseName"
+        type="text"
+        class="custom-span__input"
+        name="name"
+        [(ngModel)]="name"
+        value=""
+        ngModel>
+    </span>
+    <span class="custom-span">
+      <label
+        for="courseDescription"
+        class="custom-span__label" >
+          Description:
+      </label>
+      <input
+        id="courseDescription"
+        type="text"
+        class="custom-span__input"
+        [(ngModel)]="description"
+        name="description"
+        value=""
+        ngModel>
+    </span>
+    <span class="custom-span">
+      <label
+        for="courseDuration"
+        class="custom-span__label" >
+          Course duration:
+      </label>
+      <input
+        id="courseDuration"
+        type="text"
+        class="custom-span__input"
+        [(ngModel)]="time"
+        name="time"
+        value=""
+        ngModel>
+    </span>
+    <span class="custom-span">
+      <label
+        for="courseDate"
+        class="custom-span__label" >
+          Course date:
+      </label>
+      <input
+        id="courseDate"
+        type="text"
+        class="custom-span__input"
+        [(ngModel)]="date"
+        name="date"
+        value=""
+        ngModel>
+    </span>
+    <div class="form-footer">
+      <button type="submit" name="button" class="btn form-footer__button">submit</button>
+    </div>
+  </form>
+</div>
