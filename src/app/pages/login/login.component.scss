@@ -1,0 +1,38 @@
+/*styles for home content only*/
+@import "../../../styles/variables";
+@import '../../../styles/fonts';
+
+
+.login {
+  display: flex;
+  justify-content: center;
+  margin: $globalMarginBig 0;
+
+  @media (min-width: $minTabletWidth) {
+    margin: 0 auto;
+    max-width: 400px;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    @media (min-width: $minTabletWidth) {
+      width: 100%;
+    }
+
+    &__button {
+      @media (min-width: $minTabletWidth) {
+        width: 50%;
+      }
+    }
+
+  }
+}
+
+.form-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

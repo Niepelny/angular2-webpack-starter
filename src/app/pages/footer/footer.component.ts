@@ -5,7 +5,6 @@ import {
 
 import { AppState } from '../../app.service';
 
-
 @Component({
   // The selector is what angular internally uses
   // for `document.querySelectorAll(selector)` in our index.html

@@ -1,15 +1,7 @@
 <div class="home">
 
-  <div class="courses-navigation">
-    <form class="courses-navigation__find" action="index.html" method="post">
-      <input type="text" name="" class="courses-navigation__find__input" value="Course name">
-      <button type="button" class="courses-navigation__find__btn" name="find">Find</button>
-    </form>
-    <button type="button" class="courses-navigation__new-course" name="AddCurse">Add Course</button>
-  </div>
-
+  <app-courses-navigation></app-courses-navigation>
   <hr>
-
   <div class="courses" >
     <div class="courses__list" *ngFor="let courses of coursesList">
       <div class="courses__description">
@@ -29,11 +21,25 @@
         </div>
       </div>
       <div class="courses__edition">
-        <a href="#" class="btn" (click)="editCurse(courses.id)">Edit courses</a>
+        <a [routerLink]="['./editCourses', courses.id]"
+          class="btn"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]= "{exact: true}">
+          Edit Course
+        </a>
         <a href="#" class="btn" (click)="deleteCurse(courses.id)">Delete</a>
       </div>
     </div>
   </div>
-
-
+  <div *ngIf="isShowAlert" class="confirm">
+    <div class="confirm__alert">
+      <div class="confirm__alert__text">
+        Are you shure?
+        <div class="confirm__alert__buttons">
+          <button href="#" class="btn" (click)="confirmDelete()">Yes</button>
+          <button href="#" class="btn" (click)="cancelDelete()">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

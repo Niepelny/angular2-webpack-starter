@@ -1,0 +1,37 @@
+<div class="login">
+  <form class="" (ngSubmit)="onSubmit($event)"  method="post" class="login__form" #userForm="ngForm">
+    <span class="custom-span">
+      <label
+        for="userName"
+        class="custom-span__label" >
+          Login:
+      </label>
+      <input
+        id="userName"
+        type="text"
+        class="custom-span__input"
+        name="userName"
+        [(ngModel)]="user.name"
+        value="user1">
+    </span>
+    <span class="custom-span">
+      <label
+        for="password"
+        class="custom-span__label">
+          Password:
+      </label>
+      <input
+        id="password"
+        type="password"
+        class="custom-span__input"
+        name="password"
+        [(ngModel)]="user.password"
+        value="password1">
+    </span>
+    <div class="form-footer">
+      <button type="submit" name="button" class="btn form-footer__button">submit</button>
+    </div>
+
+  </form>
+
+</div>
