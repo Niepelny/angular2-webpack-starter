@@ -2,36 +2,12 @@
 
   <app-courses-navigation></app-courses-navigation>
   <hr>
-  <div class="courses" >
-    <div class="courses__list" *ngFor="let courses of coursesList">
-      <div class="courses__description">
-        <div class="courses__label">
-          <div class="courses__label__name">
-          Video curse  <span class="courses__label__name--id">{{courses.id}}</span>
-          </div>
-          <div class="courses__label__time">
-            {{courses.time}} hour
-          </div>
-          <div class="courses__label__date">
-            date {{courses.date}}
-          </div>
-        </div>
-        <div class="courses__text">
-          {{courses.description}}
-        </div>
-      </div>
-      <div class="courses__edition">
-        <a [routerLink]="['./editCourses', courses.id]"
-          class="btn"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]= "{exact: true}">
-          Edit Course
-        </a>
-        <a href="#" class="btn" (click)="deleteCurse(courses.id)">Delete</a>
-      </div>
-    </div>
+  <div *ngIf="!coursesListFilled" class="loader">Loading...</div>
+  <div *ngIf="coursesListFilled" class="courses" >
+    <app-course *ngFor="let course of coursesList" [courseData]="course"></app-course>
   </div>
-  <div *ngIf="isShowAlert" class="confirm">
+  
+  <div *ngIf="ispopupShow" class="confirm">
     <div class="confirm__alert">
       <div class="confirm__alert__text">
         Are you shure?

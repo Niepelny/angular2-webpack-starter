@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { ICourse } from '../pages/courses/iCourse.interface';
+
 const coursesList = [{
   id: 1,
   name: 'kurs 1',
@@ -43,47 +46,78 @@ const coursesList = [{
 
 @Injectable()
 export class CoursesService {
-  public getCourses () {
-    return coursesList;
+  private isPopupDisplayed;
+  private deleteCourseId;
+
+  constructor () {
+    this.isPopupDisplayed = false;
   }
 
-  public createNewCourse (course) {
+  public getCourses (): Observable<ICourse[]> {
+    return new Observable((observer) => {
+      setTimeout(() => {
+        observer.next(coursesList);
+      }, 2000);
+      setTimeout(() => {
+        observer.complete();
+      }, 3000);
+    });
+  }
+
+  public createNewCourse (course: ICourse): boolean {
     coursesList.push(course);
+    return true;
   }
 
-  public getCourse(id: number) {
+  public getCourse(id: number): Promise<ICourse> {
     return new Promise((resolve, reject) => {
-      coursesList.forEach((item) => {
+      coursesList.filter((item) => {
         if (item.id === id) {
           resolve(item);
         }
       });
+      reject('error');
     });
   }
 
-  public  deleteCourse (courseId) {
+  public deleteCourse (courseId): boolean {
+    this.isPopupDisplayed = true;
+    this.deleteCourseId = courseId;
+    return true;
+  }
+
+  public confirmPopupStatus (): boolean {
+    return !!this.isPopupDisplayed;
+  }
+
+  public confirmDelete (): boolean {
     coursesList.filter((item) => {
-      if (item.id === courseId) {
+      if (item.id === this.deleteCourseId) {
         const index = coursesList.indexOf(item);
         if (index >= 0) {
           coursesList.splice( index, 1 );
+          this.isPopupDisplayed = false;
+          return true;
         }
       }
     });
+    return false;
   }
 
-  public editCourse (course) {
-    coursesList.filter((item) => {
-      if (item.id === +course.id) {
-        const index = coursesList.indexOf(item);
-        if (index >= 0) {
-          coursesList[index] = course;
-        }
-      }
-    });
+  public rejectDelete (): boolean {
+    this.isPopupDisplayed = true;
+    return true;
   }
 
-  public get courseCount () {
+  public editCourse (course: ICourse): boolean {
+    this. deleteCourseId = +course.id;
+    this.confirmDelete();
+    const newCourse = Object.assign({}, course, {id: +course.id});
+    this.createNewCourse(newCourse);
+    return true;
+  }
+
+  public get courseCount (): number {
     return coursesList.length + 1;
   }
 }

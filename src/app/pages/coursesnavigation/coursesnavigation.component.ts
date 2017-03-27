@@ -18,7 +18,8 @@ import {
   ],
   styleUrls: [ './coursesnavigation.component.scss' ],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
-  templateUrl: './coursesnavigation.component.html'
+  templateUrl: './coursesnavigation.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class CourseNavigationComponent {

@@ -7,32 +7,31 @@ import {
   Output,
   ChangeDetectionStrategy
 } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
-import { AppState } from '../../app.service';
-import { ICourse } from './course.interface';
-import { CoursesService } from '../services/courses.service';
+import { AppState } from '../../../app.service';
+import { ICourse } from '../iCourse.interface';
+import { CoursesService } from '../../../services/courses.service';
 import { CanActivate, Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { ICourseEdited } from '../iCourseEdited.interface';
 
 @Component({
-  // The selector is what angular internally uses
-  // for `document.querySelectorAll(selector)` in our index.html
-  // where, in this case, selector is the string 'header'
-  selector: 'find-course',  // <home></home>
-  // We need to tell Angular's Dependency Injection which providers are in our app.
+  selector: 'find-course',
   providers: [
     CoursesService
   ],
-  styleUrls: [ './course.component.scss' ],
-  // Every Angular template is first compiled by the browser before Angular runs it's compiler
-  templateUrl: './course.component.html'
+  styleUrls: [ './addCourse.component.scss' ],
+  templateUrl: './addCourse.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CourseComponent implements ICourse, OnInit {
+export class AddCourseComponent implements ICourse, ICourseEdited, OnInit {
   public id: number;
   public name: string;
   public time: string;
   public date: string;
   public description: string;
+  public currentModel: Object;
 
   constructor(
     public coursesService: CoursesService,
@@ -40,6 +39,13 @@ export class CourseComponent implements ICourse, OnInit {
     private route: ActivatedRoute,
   ) {
     console.log('CoursesComponent');
+    this.currentModel = {
+      id: this.coursesService.courseCount,
+      name: this.name,
+      time: this.time,
+      date: this.date,
+      description: this.description,
+    };
   }
 
   public editCourses() {
@@ -81,11 +87,18 @@ export class CourseComponent implements ICourse, OnInit {
   public ngOnInit() {
     this.id = this.route.snapshot.params['id'];
     if (this.id) {
-      this.coursesService.getCourse(+this.id).then((data) => {
+      this.coursesService.getCourse(+this.id).then((data: ICourse) => {
         this.name = data.name;
         this.time = data.time;
         this.date = data.date;
         this.description = data.description;
+        this.currentModel = {
+          id: this.id,
+          name: data.name,
+          time: data.time,
+          date: data.date,
+          description: data.description,
+        };
       });
     }
   }

@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home';
 import { LoginComponent } from './pages/login';
-import { CourseComponent } from './pages/courses';
+import { AddCourseComponent } from './pages/courses/addCourse';
 import { NoContentComponent } from './no-content';
 import { DataResolver } from './app.resolver';
 
@@ -16,11 +16,11 @@ export const ROUTES: Routes = [
     path: 'login',
     component: LoginComponent
   }, {
-    path: 'addCourses',
-    component: CourseComponent
+    path: 'addCourse',
+    component: AddCourseComponent
   }, {
-    path: 'editCourses/:id',
-    component: CourseComponent,
+    path: 'editCourse/:id',
+    component: AddCourseComponent,
     data: {
       type: 'edit'
     }

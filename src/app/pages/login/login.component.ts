@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 import { AppState } from '../../app.service';
-import { LoginService } from '../services/login.service';
+import { LoginService } from '../../services/login.service';
 import { HeaderComponent } from '../header/header.component';
 import { CanActivate, Router, ActivatedRoute } from '@angular/router';
 
