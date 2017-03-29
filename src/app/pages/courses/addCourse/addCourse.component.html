@@ -1,7 +1,8 @@
 <div class="course">
+  {{currentCourse}}
   <form class="course-form" (ngSubmit)="createCourse(courseForm)" #courseForm="ngForm" action="index.html" method="post">
 
-    <span class="custom-span" *ngIf="id">
+    <span class="custom-span" *ngIf="currentCourseId">
       <label
         for="courseId"
         class="custom-span__label" >
@@ -11,8 +12,8 @@
         id="courseId"
         type="text"
         class="custom-span__input"
-        name="id"
-        [(ngModel)]="id"
+        name="currentCourse.id"
+        [(ngModel)]="currentCourse.id"
         value=""
         disabled
         ngModel>
@@ -27,8 +28,8 @@
         id="courseName"
         type="text"
         class="custom-span__input"
-        name="name"
-        [(ngModel)]="name"
+        name="currentCourse.name"
+        [(ngModel)]="currentCourse.name"
         value=""
         ngModel>
     </span>
@@ -42,8 +43,8 @@
         id="courseDescription"
         type="text"
         class="custom-span__input"
-        [(ngModel)]="description"
-        name="description"
+        [(ngModel)]="currentCourse.description"
+        name="currentCourse.description"
         value=""
         ngModel>
     </span>
@@ -57,8 +58,8 @@
         id="courseDuration"
         type="text"
         class="custom-span__input"
-        [(ngModel)]="time"
-        name="time"
+        [(ngModel)]="currentCourse.time"
+        name="currentCourse.time"
         value=""
         ngModel>
     </span>
@@ -72,8 +73,8 @@
         id="courseDate"
         type="text"
         class="custom-span__input"
-        [(ngModel)]="date"
-        name="date"
+        [(ngModel)]="currentCourse.date"
+        name="currentCourse.date"
         value=""
         ngModel>
     </span>
@@ -81,5 +82,8 @@
       <button type="submit" name="button" class="btn form-footer__button">submit</button>
     </div>
   </form>
-  <app-edit [courseData]="currentModel"></app-edit>
+  <app-edit 
+    [courseData]="currentModel"
+    (courseDataOutput)="courseDataOutput($event)">
+    ></app-edit>
 </div>

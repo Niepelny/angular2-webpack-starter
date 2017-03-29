@@ -2,6 +2,7 @@ import {
   Component,
   OnInit,
   OnChanges,
+  EventEmitter,
   SimpleChanges,
   Input,
   Output,
@@ -18,12 +19,13 @@ import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-course',
   providers: [],
-  styleUrls: [ './course.component.scss' ],
+  styleUrls: ['./course.component.scss'],
   templateUrl: './course.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CourseComponent implements  OnInit {
+export class CourseComponent implements OnInit {
   @Input() courseData: ICourse;
+  @Output() onVoted = new EventEmitter<boolean>();
   public id: number;
   public name: string;
   public time: string;
@@ -38,7 +40,7 @@ export class CourseComponent implements  OnInit {
     console.log('CoursesComponent');
   }
 
-  public editCourses () {
+  public editCourses() {
     return true;
   }
 
@@ -46,7 +48,7 @@ export class CourseComponent implements  OnInit {
     console.log('course generator');
   }
 
-   public deleteCurse(id) {
+  public deleteCurse(id) {
     this.coursesService.deleteCourse(id);
   }
 }

@@ -2,6 +2,9 @@ import {
   Component,
   OnInit,
   Input,
+  Output,
+  NgZone,
+  EventEmitter,
   ChangeDetectionStrategy
 } from '@angular/core';
 
@@ -17,8 +20,11 @@ import { ICourse } from '../iCourse.interface';
 })
 
 export class EditCourseComponent implements OnInit {
-  @Input() courseData: Object;
-  constructor() {
+  @Input() courseData: ICourse;
+  @Output() courseDataOutput = new EventEmitter<any>();
+  constructor(
+    private ngZone: NgZone,
+  ) {
     console.log('test');
     this.courseData = {
       id: null,
@@ -27,9 +33,23 @@ export class EditCourseComponent implements OnInit {
       date: null,
       description: null
     };
+    console.log('this.ngZone 2');
+    console.log(this.ngZone);
+    console.log(this.ngZone.onStable);
+    console.log(this.ngZone.onUnstable);
+    console.log('----');
+  }
+
+  public restartData() {
+    this.courseDataOutput.emit(this.courseData);
   }
 
   public ngOnInit() {
+    console.log('this.ngZone');
+    console.log(this.ngZone);
+    console.log(this.ngZone.onStable);
+    console.log(this.ngZone.onUnstable);
+    console.log('----');
     console.log(this.courseData);
     console.log('test');
   }

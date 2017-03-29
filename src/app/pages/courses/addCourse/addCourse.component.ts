@@ -5,7 +5,8 @@ import {
   SimpleChanges,
   Input,
   Output,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
@@ -25,38 +26,23 @@ import { ICourseEdited } from '../iCourseEdited.interface';
   templateUrl: './addCourse.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddCourseComponent implements ICourse, ICourseEdited, OnInit {
-  public id: number;
-  public name: string;
-  public time: string;
-  public date: string;
-  public description: string;
+export class AddCourseComponent implements ICourseEdited, OnInit {
   public currentModel: Object;
+  public currentCourse: ICourse;
+  public currentCourseId: Number;
 
   constructor(
     public coursesService: CoursesService,
     private router: Router,
     private route: ActivatedRoute,
+    private ref: ChangeDetectorRef
   ) {
     console.log('CoursesComponent');
-    this.currentModel = {
-      id: this.coursesService.courseCount,
-      name: this.name,
-      time: this.time,
-      date: this.date,
-      description: this.description,
-    };
+    this.currentModel = this.coursesService;
   }
 
-  public editCourses() {
-    const newCourse = {
-      id: this.coursesService.courseCount,
-      name: this.name,
-      time: this.time,
-      date: this.date,
-      description: this.description,
-    };
-    this.coursesService.editCourse(newCourse);
+  public updateCourses() {
+    this.coursesService.updateCourses(this.currentCourse);
     this.router.navigate(['/']);
   };
 
@@ -65,41 +51,39 @@ export class AddCourseComponent implements ICourse, ICourseEdited, OnInit {
   };
 
   public createCourse(courseForm: NgForm) {
-
-    console.log(courseForm.value);
-    const courseId = this.id ? this.id : this.coursesService.courseCount;
-    const newCourse = {
-      id: courseId,
-      name: this.name,
-      time: this.time,
-      date: this.date,
-      description: this.description,
-    };
-    if (this.id) {
-      this.coursesService.editCourse(newCourse);
+    const courseId = this.currentCourseId ? this.currentCourse.id : this.coursesService.courseCount;
+    const newCourse = Object.assign({}, this.currentCourse, {id: courseId});
+    if (this.currentCourse.id) {
+      this.coursesService.updateCourses(newCourse);
     } else {
       this.coursesService.createNewCourse(newCourse);
     }
-
     this.router.navigate(['/']);
   }
 
+  public courseDataOutput (data: any) {
+    this.currentCourse = data;
+  }
+
   public ngOnInit() {
-    this.id = this.route.snapshot.params['id'];
-    if (this.id) {
-      this.coursesService.getCourse(+this.id).then((data: ICourse) => {
-        this.name = data.name;
-        this.time = data.time;
-        this.date = data.date;
-        this.description = data.description;
-        this.currentModel = {
-          id: this.id,
-          name: data.name,
-          time: data.time,
-          date: data.date,
-          description: data.description,
-        };
+    this.currentCourseId = this.route.snapshot.params['id'];
+    this.currentCourse = {
+      id: null,
+      name: null,
+      description: null,
+      date: null,
+      time: null
+    };
+    if  (this.currentCourseId) {
+      this.coursesService.getCourses.subscribe(
+        (data: ICourse[]) => {
+          this.currentCourse = data[0];
+          this.ref.markForCheck();
       });
+    }
+
+    if (this.currentCourseId) {
+      this.coursesService.getCourse(+this.currentCourseId);
     }
   }
 }

@@ -59,22 +59,30 @@ export class HomeComponent implements OnInit {
     return this.coursesService.confirmPopupStatus();
   }
   public ngOnInit() {
+    console.log('this.ngZone init');
+    console.log(this._ngZone);
+    console.log(this._ngZone.onStable);
+    console.log(this._ngZone.onUnstable);
+    console.log('----');
     this.getCoursesList();
-    // this.title.getData().subscribe(data => this.data = data);
   }
 
   public getCoursesList () {
-    this.coursesService.getCourses().subscribe(
+    this.coursesService.getCourses.subscribe(
       (data: ICourse[]) => {
-        this._ngZone.run(() => {
-            this.coursesListsetter = data;
-            this.ref.markForCheck();
-        });
+        this.coursesListsetter = data;
+        this.ref.markForCheck();
     });
+    this.coursesService.getCourseDeleay();
   }
 
   public set coursesListsetter(list: ICourse[]) {
     this.coursesList = list;
+    console.log('this.ngZone coursesListsetter');
+    console.log(this._ngZone);
+    console.log(this._ngZone.onStable);
+    console.log(this._ngZone.onUnstable);
+    console.log('----');
   }
 
   public confirmDelete(): Boolean {

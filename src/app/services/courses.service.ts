@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { ICourse } from '../pages/courses/iCourse.interface';
+import _ from 'lodash';
 
 const coursesList = [{
   id: 1,
@@ -48,36 +49,32 @@ const coursesList = [{
 export class CoursesService {
   private isPopupDisplayed;
   private deleteCourseId;
+  private courses: BehaviorSubject<ICourse[]> = new BehaviorSubject([]);
 
   constructor () {
     this.isPopupDisplayed = false;
   }
 
-  public getCourses (): Observable<ICourse[]> {
-    return new Observable((observer) => {
-      setTimeout(() => {
-        observer.next(coursesList);
-      }, 2000);
-      setTimeout(() => {
-        observer.complete();
-      }, 3000);
-    });
+  public get getCourses (): Observable<ICourse[]> {
+    return this.courses;
   }
 
-  public createNewCourse (course: ICourse): boolean {
+  public getCourseDeleay () {
+    setTimeout(() => {
+      this.courses.next(coursesList);
+    }, 2000);
+  }
+
+  public createNewCourse (course: ICourse) {
     coursesList.push(course);
-    return true;
+    this.courses.next(coursesList);
   }
 
-  public getCourse(id: number): Promise<ICourse> {
-    return new Promise((resolve, reject) => {
-      coursesList.filter((item) => {
-        if (item.id === id) {
-          resolve(item);
-        }
-      });
-      reject('error');
+  public getCourse(id: number) {
+    const selectedElement = coursesList.find((data) => {
+      return data.id === id;
     });
+    this.courses.next([selectedElement]);
   }
 
   public deleteCourse (courseId): boolean {
@@ -91,16 +88,8 @@ export class CoursesService {
   }
 
   public confirmDelete (): boolean {
-    coursesList.filter((item) => {
-      if (item.id === this.deleteCourseId) {
-        const index = coursesList.indexOf(item);
-        if (index >= 0) {
-          coursesList.splice( index, 1 );
-          this.isPopupDisplayed = false;
-          return true;
-        }
-      }
-    });
+    _.pullAllBy(coursesList, [{ id: this.deleteCourseId }], 'id');
+    this.isPopupDisplayed = false;
     return false;
   }
 
@@ -109,7 +98,7 @@ export class CoursesService {
     return true;
   }
 
-  public editCourse (course: ICourse): boolean {
+  public updateCourses (course: ICourse): boolean {
     this. deleteCourseId = +course.id;
     this.confirmDelete();
     const newCourse = Object.assign({}, course, {id: +course.id});
