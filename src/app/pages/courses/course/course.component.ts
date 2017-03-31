@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { CoursesService } from '../../../services/courses.service';
+import { CoursesService } from '../../../core/services/courses.service';
 import { AppState } from '../../../app.service';
 import { ICourse } from '../iCourse.interface';
 import { CanActivate, Router, ActivatedRoute } from '@angular/router';

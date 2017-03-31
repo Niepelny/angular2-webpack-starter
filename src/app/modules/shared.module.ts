@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { LoginService } from '../services/login.service';
+import { LoginService } from '../core/services/login.service';
 import { LoginComponent } from '../pages/login';
 import { FormsModule } from '@angular/forms';
 import {

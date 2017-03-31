@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { ICourse } from '../pages/courses/iCourse.interface';
+import { ICourse } from '../../pages/courses/iCourse.interface';
 import _ from 'lodash';
 
 const coursesList = [{
@@ -55,14 +55,12 @@ export class CoursesService {
     this.isPopupDisplayed = false;
   }
 
-  public get getCourses (): Observable<ICourse[]> {
-    return this.courses;
+  public get coursesStream (): Observable<ICourse[]> {
+    return this.courses.delay(2000);
   }
 
-  public getCourseDeleay () {
-    setTimeout(() => {
-      this.courses.next(coursesList);
-    }, 2000);
+  public getCourses () {
+    this.courses.next(coursesList);
   }
 
   public createNewCourse (course: ICourse) {

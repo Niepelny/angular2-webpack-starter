@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 
 import { AppState } from '../app.service';
-import { LoginService } from '../services/login.service';
+import { LoginService } from '../core/services/login.service';
 import { CanActivate, Router, ActivatedRoute } from '@angular/router';
 
 @Component({

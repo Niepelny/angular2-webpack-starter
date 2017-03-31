@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { LoginService } from './services/login.service';
+import { LoginService } from './core/services/login.service';
+import { LoaderService } from './core/services/loader.service';
 import {
   NgModule,
   ApplicationRef
@@ -29,6 +30,7 @@ import { AppState, InternalStateType } from './app.service';
 import { HomeComponent } from './pages/home';
 import { CourseComponent } from './pages/courses/course';
 import { AddCourseComponent } from './pages/courses/addCourse';
+import { LoaderComponent } from './core/components/loader';
 import { EditCourseComponent } from './pages/courses/editCourse';
 import { HeaderComponent } from './header';
 import { FooterComponent } from './footer';
@@ -62,6 +64,7 @@ type StoreType = {
     HeaderComponent,
     FooterComponent,
     AddCourseComponent,
+    LoaderComponent,
     EditCourseComponent,
     CourseComponent,
     NoContentComponent,
@@ -78,7 +81,8 @@ type StoreType = {
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     APP_PROVIDERS,
-    LoginService
+    LoginService,
+    LoaderService,
   ]
 })
 export class AppModule {

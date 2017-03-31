@@ -12,7 +12,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { AppState } from '../../../app.service';
 import { ICourse } from '../iCourse.interface';
-import { CoursesService } from '../../../services/courses.service';
+import { CoursesService } from '../../../core/services/courses.service';
 import { CanActivate, Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ICourseEdited } from '../iCourseEdited.interface';
@@ -75,7 +75,7 @@ export class AddCourseComponent implements ICourseEdited, OnInit {
       time: null
     };
     if  (this.currentCourseId) {
-      this.coursesService.getCourses.subscribe(
+      this.coursesService.coursesStream.subscribe(
         (data: ICourse[]) => {
           this.currentCourse = data[0];
           this.ref.markForCheck();

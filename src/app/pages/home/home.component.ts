@@ -15,8 +15,9 @@ import { FormsModule }   from '@angular/forms';
 import { AppState } from '../../app.service';
 import { Title } from './title';
 import { XLargeDirective } from './x-large';
-import { CoursesService } from '../../services/courses.service';
+import { CoursesService } from '../../core/services/courses.service';
 import { ICourse } from '../courses/iCourse.interface';
+import { LoaderService } from '../../core/services/loader.service';
 
 @Component({
   // The selector is what angular internally uses
@@ -39,13 +40,17 @@ export class HomeComponent implements OnInit {
   // Set our default values
   public localState = { value: '' };
   public coursesList: ICourse[] = [];
+  public showLoader: Boolean = true;
+
+  private start;
   // TypeScript public modifiers
   constructor(
     public appState: AppState,
     public title: Title,
     public coursesService: CoursesService,
     private _ngZone: NgZone,
-    private ref: ChangeDetectorRef
+    private ref: ChangeDetectorRef,
+    private loaderService: LoaderService
   ) {
     this.coursesList = [];
   }
@@ -65,19 +70,33 @@ export class HomeComponent implements OnInit {
     console.log(this._ngZone.onUnstable);
     console.log('----');
     this.getCoursesList();
+    this._ngZone.onUnstable.subscribe(() => {
+      this.start = new Date ();
+      console.log('onUnstable', this.start.getTime());
+    });
+
+    this._ngZone.onStable.subscribe(() => {
+      const d = new Date();
+      console.log('onStable', d.getTime());
+      if (this.start) {
+        console.log('onUnstable - onStable ', d.getTime() - this.start.getTime());
+      }
+    });
   }
 
   public getCoursesList () {
-    this.coursesService.getCourses.subscribe(
+    this.coursesService.coursesStream.subscribe(
       (data: ICourse[]) => {
         this.coursesListsetter = data;
         this.ref.markForCheck();
     });
-    this.coursesService.getCourseDeleay();
+    this.coursesService.getCourses();
   }
 
   public set coursesListsetter(list: ICourse[]) {
     this.coursesList = list;
+    this.loaderService.loaderStatus = false;
+    this.showLoader = false;
     console.log('this.ngZone coursesListsetter');
     console.log(this._ngZone);
     console.log(this._ngZone.onStable);
