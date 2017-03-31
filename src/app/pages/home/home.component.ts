@@ -2,7 +2,7 @@ import {
   Component,
   OnInit,
   OnChanges,
-  SimpleChanges,
+  SimpleChange,
   Input,
   NgZone,
   ChangeDetectionStrategy,
@@ -18,6 +18,7 @@ import { XLargeDirective } from './x-large';
 import { CoursesService } from '../../core/services/courses.service';
 import { ICourse } from '../courses/iCourse.interface';
 import { LoaderService } from '../../core/services/loader.service';
+import { PopupComponent } from '../../core/components/popup';
 
 @Component({
   // The selector is what angular internally uses
@@ -41,6 +42,11 @@ export class HomeComponent implements OnInit {
   public localState = { value: '' };
   public coursesList: ICourse[] = [];
   public showLoader: Boolean = true;
+  public popupData = {
+    name: "test",
+    descrition: "testetset etst test s",
+    elementId: 4,
+  }
 
   private start;
   // TypeScript public modifiers

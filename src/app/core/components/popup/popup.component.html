@@ -1,0 +1,27 @@
+<div *ngIf="ispopupShow" class="confirm">
+  <div class="confirm__alert">
+    <div class="confirm__alert__text">
+      Are you shure?
+      <div class="confirm__alert__buttons">
+        <button href="#" class="btn" (click)="confirmDelete()">Yes</button>
+        <button href="#" class="btn" (click)="cancelDelete()">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="popup">
+  adsadasd
+  <div class="popup-header">
+    {{popupData.popupName}}
+  </div>
+  <div class="popup-body">
+    <div class="popup-body">
+      {{popupData.popupDescription}}
+    </div>
+    <div class="popup-body">
+      <button href="#" class="btn" (click)="confirmDelete()">Yes</button>
+      <button href="#" class="btn" (click)="cancelDelete()">No</button>
+    </div>
+  </div>
+</div>

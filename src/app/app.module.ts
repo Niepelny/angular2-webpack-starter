@@ -30,6 +30,7 @@ import { HomeComponent } from './pages/home';
 import { CourseComponent } from './pages/courses/course';
 import { AddCourseComponent } from './pages/courses/addCourse';
 import { LoaderComponent } from './core/components/loader';
+import { PopupComponent } from './core/components/popup';
 import { EditCourseComponent } from './pages/courses/editCourse';
 import { HeaderComponent } from './header';
 import { FooterComponent } from './footer';
@@ -66,6 +67,7 @@ type StoreType = {
     LoaderComponent,
     EditCourseComponent,
     CourseComponent,
+    PopupComponent,
     NoContentComponent,
     CourseNavigationComponent,
     XLargeDirective

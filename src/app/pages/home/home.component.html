@@ -5,16 +5,9 @@
   <div *ngIf="coursesListFilled" class="courses" >
     <app-course *ngFor="let course of coursesList" [courseData]="course"></app-course>
   </div>
-  <app-loader [isPopupShow]="showLoader" ></app-loader>
 </div>
-<div *ngIf="ispopupShow" class="confirm">
-  <div class="confirm__alert">
-    <div class="confirm__alert__text">
-      Are you shure?
-      <div class="confirm__alert__buttons">
-        <button href="#" class="btn" (click)="confirmDelete()">Yes</button>
-        <button href="#" class="btn" (click)="cancelDelete()">No</button>
-      </div>
-    </div>
-  </div>
-</div>
+<app-loader [isPopupShow]="loaderService.showLoader" ></app-loader>
+<app-popup
+  [popupData]="popupData"
+></app-popup>
+
