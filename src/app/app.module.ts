@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { LoginService } from './core/services/login.service';
 import { LoaderService } from './core/services/loader.service';
 import {
   NgModule,
@@ -81,7 +80,6 @@ type StoreType = {
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     APP_PROVIDERS,
-    LoginService,
     LoaderService,
   ]
 })
@@ -90,7 +88,6 @@ export class AppModule {
   constructor(
     public appRef: ApplicationRef,
     public appState: AppState,
-    public loginService: LoginService,
   ) {}
 
   public hmrOnInit(store: StoreType) {

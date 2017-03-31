@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 const users = [{
-  user: 'user1',
-  password: 'password1'
+  user: 'user',
+  password: 'user'
 }, {
   user: 'user2',
   password: 'password1'
