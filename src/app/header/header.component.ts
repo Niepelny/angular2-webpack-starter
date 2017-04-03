@@ -3,8 +3,8 @@ import {
   OnInit
 } from '@angular/core';
 
-import { AppState } from '../../app.service';
-import { LoginService } from '../services/login.service';
+import { AppState } from '../app.service';
+import { LoginService } from '../core/services/login.service';
 import { CanActivate, Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -42,7 +42,6 @@ export class HeaderComponent implements OnInit {
   }
   public ngOnInit() {
     console.log('hello `header` component');
-    // this.title.getData().subscribe(data => this.data = data);
   }
 
 }

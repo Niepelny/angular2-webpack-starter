@@ -1,0 +1,27 @@
+<div class="course__list" >
+  <div class="course__description">
+    <div class="course__label">
+      <div class="course__label__name">
+      Video curse  <span class="course__label__name--id">{{courseData.id}}</span>
+      </div>
+      <div class="course__label__time">
+        {{courseData.time}} hour
+      </div>
+      <div class="course__label__date">
+        date {{courseData.date}}
+      </div>
+    </div>
+    <div class="course__text">
+      {{courseData.description}}
+    </div>
+  </div>
+  <div class="course__edition">
+    <a [routerLink]="['./editCourse', courseData.id]"
+      class="btn"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]= "{exact: true}">
+      Edit Course
+    </a>
+    <a href="#" class="btn" (click)="deleteCurse(courseData.id)">Delete</a>
+  </div>
+</div>

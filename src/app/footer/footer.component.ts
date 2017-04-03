@@ -3,7 +3,7 @@ import {
   OnInit
 } from '@angular/core';
 
-import { AppState } from '../../app.service';
+import { AppState } from '../app.service';
 
 @Component({
   // The selector is what angular internally uses
@@ -13,7 +13,7 @@ import { AppState } from '../../app.service';
   // We need to tell Angular's Dependency Injection which providers are in our app.
   providers: [],
   // Our list of styles in our component. We may add more to compose many styles together
-  styleUrls: [ './footer.component.css' ],
+  styleUrls: [ './footer.component.scss' ],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
   templateUrl: './footer.component.html'
 })

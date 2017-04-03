@@ -2,17 +2,23 @@ import {
   Component,
   OnInit,
   OnChanges,
-  SimpleChanges,
+  SimpleChange,
   Input,
-  Output
+  NgZone,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
 } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 import { ElementRef } from 'angular2/core';
 import { FormsModule }   from '@angular/forms';
 import { AppState } from '../../app.service';
 import { Title } from './title';
 import { XLargeDirective } from './x-large';
-import { CoursesService } from '../services/courses.service';
+import { CoursesService } from '../../core/services/courses.service';
+import { ICourse } from '../courses/iCourse.interface';
+import { LoaderService } from '../../core/services/loader.service';
+import { PopupComponent } from '../../core/components/popup';
 
 @Component({
   // The selector is what angular internally uses
@@ -24,6 +30,7 @@ import { CoursesService } from '../services/courses.service';
     Title,
     CoursesService
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   // Our list of styles in our component. We may add more to compose many styles together
   styleUrls: [ './home.component.scss' ],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
@@ -33,15 +40,23 @@ export class HomeComponent implements OnInit {
 
   // Set our default values
   public localState = { value: '' };
-  public coursesList;
-  public courses = {};
-  public isShowAlert = false;
-  private courseTodelete;
+  public coursesList: ICourse[] = [];
+  public showLoader: Boolean = true;
+  public popupData = {
+    name: "test",
+    descrition: "testetset etst test s",
+    elementId: 4,
+  }
+
+  private start;
   // TypeScript public modifiers
   constructor(
     public appState: AppState,
     public title: Title,
-    public coursesService: CoursesService
+    public coursesService: CoursesService,
+    private _ngZone: NgZone,
+    private ref: ChangeDetectorRef,
+    private loaderService: LoaderService
   ) {
     this.coursesList = [];
   }
@@ -51,28 +66,61 @@ export class HomeComponent implements OnInit {
     this.localState.value = '';
   }
 
-  public deleteCurse(id: number) {
-    this.isShowAlert = true;
-    this.courseTodelete = id;
+  public get ispopupShow(): boolean {
+    return this.coursesService.confirmPopupStatus();
   }
-
   public ngOnInit() {
-    this.coursesList = this.coursesService.getCourses();
-    console.log('hello `Home` component');
-    // this.title.getData().subscribe(data => this.data = data);
+    console.log('this.ngZone init');
+    console.log(this._ngZone);
+    console.log(this._ngZone.onStable);
+    console.log(this._ngZone.onUnstable);
+    console.log('----');
+    this.getCoursesList();
+    this._ngZone.onUnstable.subscribe(() => {
+      this.start = new Date ();
+      console.log('onUnstable', this.start.getTime());
+    });
+
+    this._ngZone.onStable.subscribe(() => {
+      const d = new Date();
+      console.log('onStable', d.getTime());
+      if (this.start) {
+        console.log('onUnstable - onStable ', d.getTime() - this.start.getTime());
+      }
+    });
   }
 
-  public confirmDelete() {
-    this.coursesService.deleteCourse(this.courseTodelete);
-    this.isShowAlert = false;
-
+  public getCoursesList () {
+    this.coursesService.coursesStream.subscribe(
+      (data: ICourse[]) => {
+        this.coursesListsetter = data;
+        this.ref.markForCheck();
+    });
+    this.coursesService.getCourses();
   }
 
-  public cancelDelete () {
-    this.isShowAlert = false;
+  public set coursesListsetter(list: ICourse[]) {
+    this.coursesList = list;
+    this.loaderService.loaderStatus = false;
+    this.showLoader = false;
+    console.log('this.ngZone coursesListsetter');
+    console.log(this._ngZone);
+    console.log(this._ngZone.onStable);
+    console.log(this._ngZone.onUnstable);
+    console.log('----');
   }
 
-  private logData(msg: string) {
-    console.log(msg);
+  public confirmDelete(): Boolean {
+    this.coursesService.confirmDelete();
+    return true;
+  }
+
+  public get coursesListFilled(): Boolean {
+    return this.coursesList.length > 0;
+  }
+
+  public cancelDelete (): Boolean {
+    this.coursesService.rejectDelete();
+    return false;
   }
 }

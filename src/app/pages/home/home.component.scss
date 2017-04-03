@@ -7,67 +7,6 @@
   justify-content: space-between;
 }
 
-.courses {
-  &__list {
-    border-radius: $globalBorderRadius;
-    border: 1px solid $borderColor;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: $globalMarginDistance;
-    padding: $globalPadding;
-    flex-direction: column;
-
-    @media (min-width: $minTabletWidth) {
-      flex-direction: row;
-    }
-  }
-
-  &__edition {
-    display: flex;
-    flex-direction: column;
-  }
-
-  &__label {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 5px;
-    flex-direction: column;
-
-    @media (min-width: $minTabletWidth) {
-      flex-direction: row;
-    }
-
-    &__name,
-    &__time,
-    &__date {
-      margin-bottom: 5px;
-
-      @media (min-width: $minTabletWidth) {
-        margin-bottom: 0;
-      }
-    }
-
-    &__name {
-      &--id {
-        font-family: $baloo;
-        font-size: 20px;
-        line-height: 20px;
-      }
-    }
-  }
-
-  &__description {
-    flex-grow: 1;
-    margin-bottom: 15px;
-    text-align: justify;
-
-    @media (min-width: $minTabletWidth) {
-      margin-bottom: 0;
-      margin-right: 15px;
-    }
-  }
-}
-
 .confirm {
   background-color: rgba(0, 188, 212, 0.4);
   display: flex;

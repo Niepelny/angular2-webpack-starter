@@ -4,5 +4,4 @@ export interface ICourse {
   time: string;
   date: string;
   description: string;
-  editCourses();
 }

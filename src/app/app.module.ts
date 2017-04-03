@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { LoginService } from './pages/services/login.service';
+import { LoaderService } from './core/services/loader.service';
 import {
   NgModule,
   ApplicationRef
@@ -27,13 +27,17 @@ import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 import { HomeComponent } from './pages/home';
-import { CourseComponent } from './pages/courses';
-import { HeaderComponent } from './pages/header';
-import { FooterComponent } from './pages/footer';
-import { LoginComponent } from './pages/login';
+import { CourseComponent } from './pages/courses/course';
+import { AddCourseComponent } from './pages/courses/addCourse';
+import { LoaderComponent } from './core/components/loader';
+import { PopupComponent } from './core/components/popup';
+import { EditCourseComponent } from './pages/courses/editCourse';
+import { HeaderComponent } from './header';
+import { FooterComponent } from './footer';
 import { CourseNavigationComponent } from './pages/coursesnavigation';
 import { NoContentComponent } from './no-content';
 import { XLargeDirective } from './pages/home/x-large';
+import { SharedModule } from './modules/shared.module';
 import '../styles/styles.scss';
 import '../styles/headings.css';
 
@@ -59,8 +63,11 @@ type StoreType = {
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    LoginComponent,
+    AddCourseComponent,
+    LoaderComponent,
+    EditCourseComponent,
     CourseComponent,
+    PopupComponent,
     NoContentComponent,
     CourseNavigationComponent,
     XLargeDirective
@@ -68,13 +75,14 @@ type StoreType = {
   imports: [ // import Angular's modules
     BrowserModule,
     FormsModule,
+    SharedModule,
     HttpModule,
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     APP_PROVIDERS,
-    LoginService
+    LoaderService,
   ]
 })
 export class AppModule {
@@ -82,7 +90,6 @@ export class AppModule {
   constructor(
     public appRef: ApplicationRef,
     public appState: AppState,
-    public loginService: LoginService,
   ) {}
 
   public hmrOnInit(store: StoreType) {
