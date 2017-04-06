@@ -9,7 +9,7 @@ const coursesList: ICourse[] = [{
   id: 1,
   name: 'kurs 1',
   time: '0:40',
-  date: new Date('2017.04.03'),
+  date: new Date('2017-04-03'),
   description: `jakis opis At vero eos et accusamus et iusto odio
   dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
   atque corrupti quos dolores et quas molestias excepturi sint occaecati
@@ -20,7 +20,7 @@ const coursesList: ICourse[] = [{
   id: 2,
   name: 'kurs 2',
   time: '45',
-  date: new Date('2017.04.27'),
+  date: new Date('2017-04-27'),
   description: `jakis At vero eos et
    accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
    voluptatum deleniti atque corrupti quos dolores et quas molestias
@@ -31,21 +31,21 @@ const coursesList: ICourse[] = [{
   id: 3,
   name: 'kurs 3',
   time: '1h',
-  date: new Date('2017.03.17'),
+  date: new Date('2017-03-17'),
   description: 'jakis opis',
   topRated: 'false'
 }, {
   id: 4,
   name: 'kurs 4',
   time: '2:12',
-  date: new Date('2017.04.15'),
+  date: new Date('2017-04-15'),
   description: 'jakis opis data',
   topRated: 'false'
 }, {
   id: 5,
   name: 'kurs 5',
   time: '1:34',
-  date: new Date('2017.03.20'),
+  date: new Date('2017-03-20'),
   description: `jakis opis jakis opis jakis opisjakis opis
   jakis opis jakis opis jakis opis jakis opis jakis opisjakis
    opisjakis opisjakis opisjakis opisjakis opis`,
