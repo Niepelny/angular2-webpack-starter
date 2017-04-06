@@ -1,13 +1,27 @@
 <div class="home">
 
-  <app-courses-navigation></app-courses-navigation>
+  <app-courses-navigation
+    (sortByName)="sortByName($event)"
+  >
+  </app-courses-navigation>
   <hr>
-  <div *ngIf="coursesListFilled" class="courses" >
-    <app-course *ngFor="let course of coursesList" [courseData]="course"></app-course>
+  <div class="filter">
+    Filter by: <br>
+    <a href="#">Id</a>|
+    <a href="#">Name</a>|
+    <a href="#">Date</a>|
+    <a href="#" (click)="addMutable()" >mutable change</a>
+  </div>
+
+  <div *ngIf="coursesListFilled" class="courses">
+    <app-course 
+    *ngFor="let course of coursesList | myOrderBy | myColor" 
+    [courseData]="course" 
+    (deteleCourse)="deteleCourse($event)">
+    </app-course>
   </div>
 </div>
 <app-loader [isPopupShow]="loaderService.showLoader" ></app-loader>
 <app-popup
-  [popupData]="popupData"
-></app-popup>
-
+>
+</app-popup>

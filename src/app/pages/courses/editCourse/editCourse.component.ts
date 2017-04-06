@@ -31,6 +31,7 @@ export class EditCourseComponent implements OnInit {
       name: null,
       time: null,
       date: null,
+      topRated: null,
       description: null
     };
     console.log('this.ngZone 2');

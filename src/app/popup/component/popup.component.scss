@@ -1,0 +1,43 @@
+.global-wrapper {
+  background-color: white;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  left: 0;
+  opacity: 0.9;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.global-wrapper__horizontal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.popup {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  text-align: center;
+  width: 300px;
+  &-header {
+    border: 3px solid black;
+    padding: 15px;
+    border-radius: 10px 10px 0 0;
+  }
+  &-body {
+    border-bottom: 3px solid gray;
+    border-left: 3px solid gray;
+    border-right: 3px solid gray;
+    padding: 15px 0;
+    &__text {
+      padding: 15px 0 10px 0;
+    }
+    &__ {
+      padding: 10px 0 15px;
+    }
+  }
+}

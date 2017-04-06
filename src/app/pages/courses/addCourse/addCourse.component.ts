@@ -72,6 +72,7 @@ export class AddCourseComponent implements ICourseEdited, OnInit {
       name: null,
       description: null,
       date: null,
+      topRated: null,
       time: null
     };
     if  (this.currentCourseId) {

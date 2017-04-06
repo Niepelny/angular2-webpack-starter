@@ -1,25 +1,28 @@
-<div class="course__list" >
+<div
+  class="course__list"
+  [myHighlight]="courseData.date"
+  [raiting]="courseData.topRated"
+  [ngClass]="{courseTopRated : courseData.topRated === 'true'}"
+  >
   <div class="course__description">
     <div class="course__label">
       <div class="course__label__name">
-      Video curse  <span class="course__label__name--id">{{courseData.id}}</span>
+        Video curse <span class="course__label__name--id">{{courseData.id}}</span>
       </div>
       <div class="course__label__time">
-        {{courseData.time}} hour
+        {{courseData.time | myDuration}} hour
+        <span *ngIf="courseData.topRated">star</span>
       </div>
       <div class="course__label__date">
-        date {{courseData.date}}
+        date {{courseData.date | date:'medium'}}
       </div>
     </div>
     <div class="course__text">
-      {{courseData.description}}
+      {{courseData.name}} {{courseData.description}}
     </div>
   </div>
   <div class="course__edition">
-    <a [routerLink]="['./editCourse', courseData.id]"
-      class="btn"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]= "{exact: true}">
+    <a [routerLink]="['./editCourse', courseData.id]" class="btn" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
       Edit Course
     </a>
     <a href="#" class="btn" (click)="deleteCurse(courseData.id)">Delete</a>

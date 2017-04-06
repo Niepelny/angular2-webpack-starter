@@ -1,6 +1,5 @@
 @import "../../../../styles/variables";
 @import '../../../../styles/fonts';
-
 .course-form {
   margin: auto;
   width: 600px;
@@ -15,37 +14,30 @@
     margin-bottom: $globalMarginDistance;
     padding: $globalPadding;
     flex-direction: column;
-
     @media (min-width: $minTabletWidth) {
       flex-direction: row;
     }
   }
-  
   &__edition {
     display: flex;
     flex-direction: column;
   }
-
   &__label {
     display: flex;
     justify-content: space-between;
     margin-bottom: 5px;
     flex-direction: column;
-
     @media (min-width: $minTabletWidth) {
       flex-direction: row;
     }
-
     &__name,
     &__time,
     &__date {
       margin-bottom: 5px;
-
       @media (min-width: $minTabletWidth) {
         margin-bottom: 0;
       }
     }
-
     &__name {
       &--id {
         font-family: $baloo;
@@ -54,15 +46,27 @@
       }
     }
   }
-
   &__description {
     flex-grow: 1;
     margin-bottom: 15px;
     text-align: justify;
-
     @media (min-width: $minTabletWidth) {
       margin-bottom: 0;
       margin-right: 15px;
     }
   }
+}
+
+.course {
+  &-new {
+    border: 2px solid #37ff46;
+  }
+
+  &-upcoming {
+    border: 2px solid #51b7ff;
+  }
+}
+
+.courseTopRated {
+  background-color: #f3fff4;
 }

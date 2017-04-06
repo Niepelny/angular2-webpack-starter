@@ -11,7 +11,7 @@ import {
 import { Observable } from 'rxjs/Observable';
 
 import { ElementRef } from 'angular2/core';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { AppState } from '../../app.service';
 import { Title } from './title';
 import { XLargeDirective } from './x-large';
@@ -19,6 +19,11 @@ import { CoursesService } from '../../core/services/courses.service';
 import { ICourse } from '../courses/iCourse.interface';
 import { LoaderService } from '../../core/services/loader.service';
 import { PopupComponent } from '../../core/components/popup';
+
+import { OrderByNamePipe } from '../../core/pipes/orderByName.pipe';
+
+import { PopupService } from '../../popup/service/popup.service';
+import { IPopup } from '../../logic/iPopup.interface';
 
 @Component({
   // The selector is what angular internally uses
@@ -28,11 +33,12 @@ import { PopupComponent } from '../../core/components/popup';
   // We need to tell Angular's Dependency Injection which providers are in our app.
   providers: [
     Title,
-    CoursesService
+    CoursesService,
+    OrderByNamePipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   // Our list of styles in our component. We may add more to compose many styles together
-  styleUrls: [ './home.component.scss' ],
+  styleUrls: ['./home.component.scss'],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
   templateUrl: './home.component.html'
 })
@@ -42,11 +48,10 @@ export class HomeComponent implements OnInit {
   public localState = { value: '' };
   public coursesList: ICourse[] = [];
   public showLoader: Boolean = true;
-  public popupData = {
-    name: "test",
-    descrition: "testetset etst test s",
-    elementId: 4,
-  }
+   private popupData = {
+    header: 'Deleting item',
+    bodyText: 'Are you shure you want delete?'
+  };
 
   private start;
   // TypeScript public modifiers
@@ -54,9 +59,11 @@ export class HomeComponent implements OnInit {
     public appState: AppState,
     public title: Title,
     public coursesService: CoursesService,
+    public  loaderService: LoaderService,
     private _ngZone: NgZone,
     private ref: ChangeDetectorRef,
-    private loaderService: LoaderService
+    private orderByNamePipe: OrderByNamePipe,
+    private popupService: PopupService,
   ) {
     this.coursesList = [];
   }
@@ -77,7 +84,7 @@ export class HomeComponent implements OnInit {
     console.log('----');
     this.getCoursesList();
     this._ngZone.onUnstable.subscribe(() => {
-      this.start = new Date ();
+      this.start = new Date();
       console.log('onUnstable', this.start.getTime());
     });
 
@@ -90,12 +97,12 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  public getCoursesList () {
+  public getCoursesList() {
     this.coursesService.coursesStream.subscribe(
       (data: ICourse[]) => {
         this.coursesListsetter = data;
         this.ref.markForCheck();
-    });
+      });
     this.coursesService.getCourses();
   }
 
@@ -110,17 +117,46 @@ export class HomeComponent implements OnInit {
     console.log('----');
   }
 
-  public confirmDelete(): Boolean {
-    this.coursesService.confirmDelete();
-    return true;
-  }
-
   public get coursesListFilled(): Boolean {
     return this.coursesList.length > 0;
   }
 
-  public cancelDelete (): Boolean {
-    this.coursesService.rejectDelete();
-    return false;
+  public deteleCourse (data: any) {
+    this.popupService.setUpPopup(
+      true,
+      data,
+      this.popupData,
+      this.coursesService.deleteCourse,
+      null
+    );
+  }
+  public addMutable () {
+    // This function was created only for training purpose
+    const mutableCourse: ICourse = {
+      id: 6,
+      name: 'mutable',
+      time: '0:32',
+      date: new Date(),
+      topRated: 'true',
+      description: 'noone',
+    };
+    this.coursesList.concat(mutableCourse);
+    // this.coursesList.push({
+    //   id: 6,
+    //   name: 'mutable',
+    //   time: '0:32',
+    //   date: new Date(),
+    //   topRated: 'true',
+    //   description: 'noone',
+    // })
+    console.log(this.coursesList);
+    // exp 2
+    // this.coursesList[3].description = 'changed';
+    // console.log(this.coursesList);
+  }
+
+  public sortByName(name: any) {
+    console.log('sort by name: ', name);
+    this.coursesService.orderBy({name});
   }
 }

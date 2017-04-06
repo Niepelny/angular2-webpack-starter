@@ -16,6 +16,9 @@ import { ICourse } from '../iCourse.interface';
 import { CanActivate, Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
+import { PopupService } from '../../../popup/service/popup.service';
+import { IPopup } from '../../../logic/iPopup.interface';
+
 @Component({
   selector: 'app-course',
   providers: [],
@@ -25,17 +28,22 @@ import { NgForm } from '@angular/forms';
 })
 export class CourseComponent implements OnInit {
   @Input() courseData: ICourse;
-  @Output() onVoted = new EventEmitter<boolean>();
+  @Output() deteleCourse = new EventEmitter<any>();
   public id: number;
   public name: string;
   public time: string;
   public date: string;
   public description: string;
+  private popupData = {
+    header: 'Deleting item',
+    bodyText: 'Are you shure you want delete?'
+  };
 
   constructor(
     public coursesService: CoursesService,
     private router: Router,
     private route: ActivatedRoute,
+    private popupService: PopupService,
   ) {
     console.log('CoursesComponent');
   }
@@ -49,6 +57,6 @@ export class CourseComponent implements OnInit {
   }
 
   public deleteCurse(id) {
-    this.coursesService.deleteCourse(id);
+    this.deteleCourse.emit(id);
   }
 }
