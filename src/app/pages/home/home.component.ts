@@ -20,7 +20,7 @@ import { ICourse } from '../courses/iCourse.interface';
 import { LoaderService } from '../../core/services/loader.service';
 import { PopupComponent } from '../../core/components/popup';
 
-import { OrderByNamePipe } from '../../core/pipes/orderByName.pipe';
+import { FilterByNamePipe } from '../../core/pipes/filterByName.pipe';
 
 import { PopupService } from '../../popup/service/popup.service';
 import { IPopup } from '../../logic/iPopup.interface';
@@ -34,7 +34,7 @@ import { IPopup } from '../../logic/iPopup.interface';
   providers: [
     Title,
     CoursesService,
-    OrderByNamePipe
+    FilterByNamePipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   // Our list of styles in our component. We may add more to compose many styles together
@@ -62,7 +62,7 @@ export class HomeComponent implements OnInit {
     public  loaderService: LoaderService,
     private _ngZone: NgZone,
     private ref: ChangeDetectorRef,
-    private orderByNamePipe: OrderByNamePipe,
+    private orderByNamePipe: FilterByNamePipe,
     private popupService: PopupService,
   ) {
     this.coursesList = [];

@@ -6,11 +6,11 @@ import {
  import _ from 'lodash';
 
 @Pipe({
-  name: 'myOrderBy',
+  name: 'myFilterByDate',
   pure: false,
 })
 
-export class OrderByPipe implements PipeTransform {
+export class FilterByDatePipe implements PipeTransform {
   transform(value: any, ...args: any[]): any {
     return _.sortBy(value, ['date']);
   }

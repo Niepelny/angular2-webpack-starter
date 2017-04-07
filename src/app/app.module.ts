@@ -45,8 +45,8 @@ import '../styles/headings.css';
 import { HighlightDirective } from './core/directives/hightLight.directive';
 import { RaitingDirective } from './core/directives/raiting.directives';
 import { DurationPipe } from './core/pipes/duration.pipe';
-import { OrderByPipe } from './core/pipes/orderBy.pipe';
-import { OrderByNamePipe } from './core/pipes/orderByName.pipe';
+import { FilterByDatePipe } from './core/pipes/filterByDate.pipe';
+import { FilterByNamePipe } from './core/pipes/filterByName.pipe';
 import { ColorPipe } from './core/pipes/color.pipe.ts';
 
 // Application wide providers
@@ -74,10 +74,10 @@ type StoreType = {
     FooterComponent,
     AddCourseComponent,
     LoaderComponent,
-    OrderByNamePipe,
+    FilterByNamePipe,
     EditCourseComponent,
     CourseComponent,
-    OrderByPipe,
+    FilterByDatePipe,
     DurationPipe,
     ColorPipe,
     NoContentComponent,
@@ -97,7 +97,7 @@ type StoreType = {
     ENV_PROVIDERS,
     APP_PROVIDERS,
     LoaderService,
-    OrderByNamePipe
+    FilterByNamePipe
   ]
 })
 export class AppModule {

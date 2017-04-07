@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { ICourse } from '../../pages/courses/iCourse.interface';
 
-import { OrderByNamePipe } from '../pipes/orderByName.pipe';
+import { FilterByNamePipe } from '../pipes/filterByName.pipe';
 import _ from 'lodash';
 
 const coursesList: ICourse[] = [{
@@ -59,7 +59,7 @@ export class CoursesService {
   private courses: BehaviorSubject<ICourse[]> = new BehaviorSubject([]);
 
   constructor(
-    private orderByNamePipe: OrderByNamePipe,
+    private orderByNamePipe: FilterByNamePipe,
   ) {
     this.isPopupDisplayed = false;
   }
