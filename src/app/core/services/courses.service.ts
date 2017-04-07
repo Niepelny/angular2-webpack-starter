@@ -15,7 +15,7 @@ const coursesList: ICourse[] = [{
   atque corrupti quos dolores et quas molestias excepturi sint occaecati
   cupiditate non provident, similique sunt in culpa qui officia deserunt
    mollitia animi, id est laborum et dolorum fuga`,
-  topRated: 'true'
+  topRated: true
 }, {
   id: 2,
   name: 'kurs 2',
@@ -26,21 +26,21 @@ const coursesList: ICourse[] = [{
    voluptatum deleniti atque corrupti quos dolores et quas molestias
     excepturi sint occaecati cupiditate non provident, similique sunt in
     culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga`,
-  topRated: 'true'
+  topRated: true
 }, {
   id: 3,
   name: 'kurs 3',
   time: '1h',
   date: new Date('2017-03-17'),
   description: 'jakis opis',
-  topRated: 'false'
+  topRated: false
 }, {
   id: 4,
   name: 'kurs 4',
   time: '2:12',
   date: new Date('2017-04-15'),
   description: 'jakis opis data',
-  topRated: 'false'
+  topRated: false
 }, {
   id: 5,
   name: 'kurs 5',
@@ -49,7 +49,7 @@ const coursesList: ICourse[] = [{
   description: `jakis opis jakis opis jakis opisjakis opis
   jakis opis jakis opis jakis opis jakis opis jakis opisjakis
    opisjakis opisjakis opisjakis opisjakis opis`,
-  topRated: 'true'
+  topRated: true
 }];
 
 @Injectable()

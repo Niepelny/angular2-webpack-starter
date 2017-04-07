@@ -137,7 +137,7 @@ export class HomeComponent implements OnInit {
       name: 'mutable',
       time: '0:32',
       date: new Date(),
-      topRated: 'true',
+      topRated: true,
       description: 'noone',
     };
     this.coursesList.concat(mutableCourse);

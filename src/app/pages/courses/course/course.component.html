@@ -11,14 +11,14 @@
       </div>
       <div class="course__label__time">
         {{courseData.time | myDuration}} hour
-        <span *ngIf="courseData.topRated">star</span>
+        <span class="star" *ngIf="courseData.topRated">&#9734;</span>
       </div>
       <div class="course__label__date">
         date {{courseData.date | date:'medium'}}
       </div>
     </div>
     <div class="course__text">
-      {{courseData.name}} {{courseData.description}}
+      {{courseData.name | uppercase}} {{courseData.description}}
     </div>
   </div>
   <div class="course__edition">
