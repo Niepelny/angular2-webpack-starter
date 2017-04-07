@@ -15,8 +15,10 @@ export class RaitingDirective implements OnInit {
   ngOnInit () {
     console.log(this.el, this.raiting);
     // dla przyszłości
-    // if (this.raiting === 'true') {
-    //   this.el.nativeElement.style.backgroundColor = '#c5ff37';
-    // }
+    if (this.raiting) {
+      const raitingSpan = '&#9734;';
+      this.el.nativeElement.innerHTML = raitingSpan;
+      console.log('t ',raitingSpan)
+    }
   }
 }

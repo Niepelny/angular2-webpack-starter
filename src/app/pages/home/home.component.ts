@@ -135,7 +135,7 @@ export class HomeComponent implements OnInit {
     const mutableCourse: ICourse = {
       id: 6,
       name: 'mutable',
-      time: '0:32',
+      duration: 32,
       date: new Date(),
       topRated: true,
       description: 'noone',

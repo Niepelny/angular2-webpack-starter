@@ -7,13 +7,24 @@ import * as Moment from 'moment';
 
 export class DurationPipe implements PipeTransform {
   transform(value: any, ...args: any[]): any {
-    const timeSplit = value.split(':');
-    let hours = '';
-    let minutes = timeSplit[0] + 'min';
-    if (timeSplit.length > 1) {
-      hours = +timeSplit[0] !== 0 ? timeSplit[0] + 'h ' : '';
-      minutes = timeSplit[1] + 'min';
+    //old code i will left it here
+    // const timeSplit = value.split(':');
+    // let hours = '';
+    // let minutes = timeSplit[0] + 'min';
+    // if (timeSplit.length > 1) {
+    //   
+    //   minutes = timeSplit[1] + 'min';
+    // }
+    const hours = Math.floor(value/60);
+    const min = value%60;
+    let hoursPart = '';
+    let minPart = '';
+    if (hours) {
+      hoursPart = `${hours}h `;
     }
-    return `${hours}${minutes}`;
+    if (min) {
+      minPart = `${min}min`;
+    }
+    return `${hoursPart}${minPart}`;
   }
 }

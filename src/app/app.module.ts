@@ -45,7 +45,7 @@ import '../styles/headings.css';
 import { HighlightDirective } from './core/directives/hightLight.directive';
 import { RaitingDirective } from './core/directives/raiting.directives';
 import { DurationPipe } from './core/pipes/duration.pipe';
-import { FilterByDatePipe } from './core/pipes/filterByDate.pipe';
+import { OrderByDatePipe } from './core/pipes/orderByDate.pipe';
 import { FilterByNamePipe } from './core/pipes/filterByName.pipe';
 import { ColorPipe } from './core/pipes/color.pipe.ts';
 
@@ -77,7 +77,7 @@ type StoreType = {
     FilterByNamePipe,
     EditCourseComponent,
     CourseComponent,
-    FilterByDatePipe,
+    OrderByDatePipe,
     DurationPipe,
     ColorPipe,
     NoContentComponent,

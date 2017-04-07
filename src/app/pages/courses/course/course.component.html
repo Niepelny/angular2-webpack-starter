@@ -1,7 +1,6 @@
 <div
   class="course__list"
   [myHighlight]="courseData.date"
-  [raiting]="courseData.topRated"
   [ngClass]="{courseTopRated : courseData.topRated === 'true'}"
   >
   <div class="course__description">
@@ -10,8 +9,8 @@
         Video curse <span class="course__label__name--id">{{courseData.id}}</span>
       </div>
       <div class="course__label__time">
-        {{courseData.time | myDuration}} hour
-        <span class="star" *ngIf="courseData.topRated">&#9734;</span>
+        {{courseData.duration | myDuration}} hour
+        <span class="star" *ngIf="courseData.topRated" [raiting]="courseData.topRated"></span>
       </div>
       <div class="course__label__date">
         date {{courseData.date | date:'medium'}}

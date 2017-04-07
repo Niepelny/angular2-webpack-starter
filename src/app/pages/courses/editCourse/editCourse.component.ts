@@ -29,7 +29,7 @@ export class EditCourseComponent implements OnInit {
     this.courseData = {
       id: null,
       name: null,
-      time: null,
+      duration: null,
       date: null,
       topRated: null,
       description: null
