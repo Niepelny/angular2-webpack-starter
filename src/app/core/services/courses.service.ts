@@ -5,6 +5,10 @@ import { ICourse } from '../../pages/courses/iCourse.interface';
 import { FilterByNamePipe } from '../pipes/filterByName.pipe';
 import _ from 'lodash';
 
+interface ICourseMock {
+  name: string
+}
+
 const coursesList: ICourse[] = [{
   id: 1,
   name: 'kurs 1',
@@ -93,9 +97,13 @@ export class CoursesService {
     return !!this.isPopupDisplayed;
   }
 
-  public orderBy (obj: Object) {
-    const result: ICourse[] =  this.orderByNamePipe.transform(coursesList, obj);
-    this.courses.next(result);
+  public orderBy (obj: ICourseMock) {
+    if( obj.name === "") {
+      this.courses.next(coursesList);
+    } else {
+      const result: ICourse[] =  this.orderByNamePipe.transform(coursesList, obj);
+      this.courses.next(result);
+    }
   }
 
   public updateCourses(course: ICourse): boolean {
