@@ -14,11 +14,10 @@ export class RaitingDirective implements OnInit {
 
   ngOnInit () {
     console.log(this.el, this.raiting);
-    // dla przyszłości
     if (this.raiting) {
       const raitingSpan = '&#9734;';
       this.el.nativeElement.innerHTML = raitingSpan;
-      console.log('t ',raitingSpan)
+      console.log('t ', raitingSpan);
     }
   }
 }
