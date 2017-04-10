@@ -1,11 +1,11 @@
 <div class="courses-navigation">
-  <form class="courses-navigation__find"  >
+  <div class="courses-navigation__find"  >
     <input
       type="text"
-      name="courses.name"
+      #findName
       name="name">
-    <button type="submit" class="courses-navigation__find__btn" name="find">Find</button>
-  </form>
+    <button type="button" (click)="findCourse(findName.value)" class="courses-navigation__find__btn" name="find">Find</button>
+  </div>
   <button [routerLink]=" ['./addCourse'] "
     class="btn"
     routerLinkActive="active"

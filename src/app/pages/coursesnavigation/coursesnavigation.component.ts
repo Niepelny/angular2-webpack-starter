@@ -5,7 +5,8 @@ import {
   SimpleChanges,
   Input,
   Output,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  EventEmitter
 } from '@angular/core';
 
 @Component({
@@ -23,9 +24,14 @@ import {
 })
 
 export class CourseNavigationComponent {
-
+  @Output() sortByName = new EventEmitter<any>();
+  public name = '';
   constructor(
   ) {
     console.log('CoursesComponent');
+  }
+
+  public findCourse (value) {
+    this.sortByName.emit(value);
   }
 }

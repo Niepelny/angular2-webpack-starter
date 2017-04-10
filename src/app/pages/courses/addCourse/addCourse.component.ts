@@ -72,7 +72,8 @@ export class AddCourseComponent implements ICourseEdited, OnInit {
       name: null,
       description: null,
       date: null,
-      time: null
+      topRated: null,
+      duration: null
     };
     if  (this.currentCourseId) {
       this.coursesService.coursesStream.subscribe(

@@ -17,6 +17,9 @@ import {
 } from '@angular/router';
 import '../styles/styles.scss';
 
+import { SharedModule } from './modules/shared.module';
+import { PopupModule } from './popup/module/popup.module';
+
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -30,16 +33,21 @@ import { HomeComponent } from './pages/home';
 import { CourseComponent } from './pages/courses/course';
 import { AddCourseComponent } from './pages/courses/addCourse';
 import { LoaderComponent } from './core/components/loader';
-import { PopupComponent } from './core/components/popup';
 import { EditCourseComponent } from './pages/courses/editCourse';
 import { HeaderComponent } from './header';
 import { FooterComponent } from './footer';
 import { CourseNavigationComponent } from './pages/coursesnavigation';
 import { NoContentComponent } from './no-content';
 import { XLargeDirective } from './pages/home/x-large';
-import { SharedModule } from './modules/shared.module';
 import '../styles/styles.scss';
 import '../styles/headings.css';
+
+import { HighlightDirective } from './core/directives/hightLight.directive';
+import { RaitingDirective } from './core/directives/raiting.directives';
+import { DurationPipe } from './core/pipes/duration.pipe';
+import { OrderByDatePipe } from './core/pipes/orderByDate.pipe';
+import { FilterByNamePipe } from './core/pipes/filterByName.pipe';
+import { ColorPipe } from './core/pipes/color.pipe.ts';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -60,15 +68,20 @@ type StoreType = {
   bootstrap: [ AppComponent ],
   declarations: [
     AppComponent,
+    HighlightDirective,
     HomeComponent,
     HeaderComponent,
     FooterComponent,
     AddCourseComponent,
     LoaderComponent,
+    FilterByNamePipe,
     EditCourseComponent,
     CourseComponent,
-    PopupComponent,
+    OrderByDatePipe,
+    DurationPipe,
+    ColorPipe,
     NoContentComponent,
+    RaitingDirective,
     CourseNavigationComponent,
     XLargeDirective
   ],
@@ -76,6 +89,7 @@ type StoreType = {
     BrowserModule,
     FormsModule,
     SharedModule,
+    PopupModule,
     HttpModule,
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
   ],
@@ -83,6 +97,7 @@ type StoreType = {
     ENV_PROVIDERS,
     APP_PROVIDERS,
     LoaderService,
+    FilterByNamePipe
   ]
 })
 export class AppModule {
