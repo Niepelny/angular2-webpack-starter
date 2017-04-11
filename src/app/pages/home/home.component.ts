@@ -8,7 +8,6 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef
 } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 
 import { ElementRef } from 'angular2/core';
 import { FormsModule } from '@angular/forms';
@@ -24,6 +23,9 @@ import { FilterByNamePipe } from '../../core/pipes/filterByName.pipe';
 
 import { PopupService } from '../../popup/service/popup.service';
 import { IPopup } from '../../logic/iPopup.interface';
+
+import { Observable, Subscription } from 'rxjs';
+import { TimerObservable } from 'rxjs/observable/TimerObservable';
 
 @Component({
   // The selector is what angular internally uses
@@ -48,10 +50,13 @@ export class HomeComponent implements OnInit {
   public localState = { value: '' };
   public coursesList: ICourse[] = [];
   public showLoader: Boolean = true;
-   private popupData = {
+  private popupData = {
     header: 'Deleting item',
     bodyText: 'Are you shure you want delete?'
   };
+  private subscription: Subscription;
+  public ticks = 0;
+
 
   private start;
   // TypeScript public modifiers
@@ -59,7 +64,7 @@ export class HomeComponent implements OnInit {
     public appState: AppState,
     public title: Title,
     public coursesService: CoursesService,
-    public  loaderService: LoaderService,
+    public loaderService: LoaderService,
     private _ngZone: NgZone,
     private ref: ChangeDetectorRef,
     private orderByNamePipe: FilterByNamePipe,
@@ -121,7 +126,7 @@ export class HomeComponent implements OnInit {
     return this.coursesList.length > 0;
   }
 
-  public deteleCourse (data: any) {
+  public deteleCourse(data: any) {
     this.popupService.setUpPopup(
       true,
       data,
@@ -130,13 +135,13 @@ export class HomeComponent implements OnInit {
       null
     );
   }
-  public addMutable () {
+  public addMutable() {
     // This function was created only for training purpose
     const mutableCourse: ICourse = {
       id: 6,
       name: 'mutable',
       duration: 32,
-      date: new Date(),
+      createdDate: new Date(),
       topRated: true,
       description: 'noone',
     };
@@ -157,6 +162,6 @@ export class HomeComponent implements OnInit {
 
   public sortByName(name: any) {
     console.log('sort by name: ', name);
-    this.coursesService.orderBy({name});
+    this.coursesService.orderBy({ name });
   }
 }

@@ -30,7 +30,7 @@ export class EditCourseComponent implements OnInit {
       id: null,
       name: null,
       duration: null,
-      date: null,
+      createdDate: null,
       topRated: null,
       description: null
     };
