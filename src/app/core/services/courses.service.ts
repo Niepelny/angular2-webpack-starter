@@ -6,7 +6,7 @@ import { FilterByNamePipe } from '../pipes/filterByName.pipe';
 import _ from 'lodash';
 
 interface ICourseMock {
-  name: string
+  name: string;
 }
 
 const coursesList: ICourse[] = [{
@@ -98,7 +98,7 @@ export class CoursesService {
   }
 
   public orderBy (obj: ICourseMock) {
-    if( obj.name === "") {
+    if ( obj.name === '') {
       this.courses.next(coursesList);
     } else {
       const result: ICourse[] =  this.orderByNamePipe.transform(coursesList, obj);

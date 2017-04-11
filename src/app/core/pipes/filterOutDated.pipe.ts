@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'filterOutdated'
+  name: 'myFilterOutdated'
 })
 
 export class FilterOutdatedPipe implements PipeTransform {
@@ -9,12 +9,12 @@ export class FilterOutdatedPipe implements PipeTransform {
 
     const timeInterval = 14 * 24 * 60 * 60 * 1000;
     const newCollection = [];
-    value.filter(data => {
-      console.log(new Date().getTime() - data.date.getTime());
-      if (new Date().getTime() - data.date.getTime() < timeInterval) {
+    value.filter((data) => {
+      console.log(new Date().getTime() - data.createdDate.getTime());
+      if (new Date().getTime() - data.createdDate.getTime() < timeInterval) {
         newCollection.push(data);
       }
-    })
+    });
     return newCollection;
   }
 }

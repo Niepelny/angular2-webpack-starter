@@ -50,13 +50,12 @@ export class HomeComponent implements OnInit {
   public localState = { value: '' };
   public coursesList: ICourse[] = [];
   public showLoader: Boolean = true;
+  public ticks = 0;
   private popupData = {
     header: 'Deleting item',
     bodyText: 'Are you shure you want delete?'
   };
   private subscription: Subscription;
-  public ticks = 0;
-
 
   private start;
   // TypeScript public modifiers

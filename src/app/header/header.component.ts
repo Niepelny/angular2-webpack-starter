@@ -23,10 +23,10 @@ import _ from 'lodash';
 export class HeaderComponent implements OnInit {
   // Set our default values
   public localState = { value: '' };
-  private isLoggedUser: boolean = false;
   public iLikeTrainsLogo = 'assets/img/I-LIKE-TRAINS.jpg';
   public name = 'Angular 2 Webpack Starter';
   public url = 'http://localhost:3000';
+  private isLoggedUser: boolean = false;
   // TypeScript public modifiers
   constructor(
     public loginService: LoginService,
@@ -44,19 +44,13 @@ export class HeaderComponent implements OnInit {
     this.loginService.logOut();
   }
   public ngOnInit() {
-    console.log('hello `header` component');
-     const getData = this.loginService.userEmmiter.subscribe(value => {
-      console.log('tutaj')
-      console.log(value);
+    const getData = this.loginService.userEmmiter.subscribe((value) => {
       if (!_.isEmpty(value)) {
-        console.log(1)
         this.isLoggedUser = true;
-      } else{
-        console.log(2)
+      } else {
         this.isLoggedUser = false;
-
       }
-    })
+    });
   }
 
 }

@@ -19,11 +19,11 @@ const users = [{
 
 @Injectable()
 export class LoginService {
-
+  public userEmmiter = new Subject();
   private loggedUser;
   private subscription;
   private ticks;
-  public userEmmiter= new Subject();
+
   constructor() {
     this.loggedUser = localStorage.getItem('currentUser');
     this.userEmmiter.next(this.loggedUser);
