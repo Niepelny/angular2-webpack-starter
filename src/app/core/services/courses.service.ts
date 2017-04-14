@@ -69,7 +69,7 @@ export class CoursesService {
   }
 
   public get coursesStream(): Observable<ICourse[]> {
-    return this.courses.delay(0);
+    return this.courses.delay(2000);
   }
 
   public getCourses() {

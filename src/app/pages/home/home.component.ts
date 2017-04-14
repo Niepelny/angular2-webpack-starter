@@ -112,7 +112,6 @@ export class HomeComponent implements OnInit {
 
   public set coursesListsetter(list: ICourse[]) {
     this.coursesList = list;
-    this.loaderService.loaderStatus = false;
     this.showLoader = false;
     console.log('this.ngZone coursesListsetter');
     console.log(this._ngZone);
