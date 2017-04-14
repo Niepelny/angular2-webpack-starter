@@ -5,6 +5,7 @@ import {
   OnChanges,
   ChangeDetectionStrategy,
   NgZone,
+  OnDestroy,
   ChangeDetectorRef
 } from '@angular/core';
 
@@ -20,7 +21,7 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class LoaderComponent implements OnInit, OnChanges {
+export class LoaderComponent implements OnInit, OnChanges, OnDestroy {
   @Input() isPopupShow: Observable<any>;
   public start: any;
   public display: Boolean = true;
@@ -67,5 +68,7 @@ export class LoaderComponent implements OnInit, OnChanges {
       }
     });
   }
-
+  ngOnDestroy() {
+     this.loaderService.loaderObservable.unsubscribe();
+  }
 }
