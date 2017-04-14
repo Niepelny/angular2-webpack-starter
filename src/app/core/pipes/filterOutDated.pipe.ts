@@ -10,8 +10,8 @@ export class FilterOutdatedPipe implements PipeTransform {
     const timeInterval = 14 * 24 * 60 * 60 * 1000;
     const newCollection = [];
     value.filter((data) => {
-      console.log(new Date().getTime() - data.createdDate.getTime());
-      if (new Date().getTime() - data.createdDate.getTime() < timeInterval) {
+      console.log(new Date().getTime() - data.date.getTime());
+      if (new Date().getTime() - data.date.getTime() < timeInterval) {
         newCollection.push(data);
       }
     });

@@ -12,6 +12,6 @@ import {
 
 export class OrderByDatePipe implements PipeTransform {
   transform(value: any, ...args: any[]): any {
-    return _.sortBy(value, ['createdDate']);
+    return _.sortBy(value, ['date']);
   }
 }

@@ -1,6 +1,6 @@
 <div
   class="course__list"
-  [myHighlight]="courseData.createdDate"
+  [myHighlight]="courseData.date"
   [ngClass]="{courseTopRated : courseData.topRated === 'true'}"
   >
   <div class="course__description">
@@ -13,7 +13,7 @@
         <span class="star" *ngIf="courseData.topRated" [raiting]="courseData.topRated"></span>
       </div>
       <div class="course__label__date">
-        date {{courseData.createdDate | date:'medium'}}
+        date {{courseData.date | date:'medium'}}
       </div>
     </div>
     <div class="course__text">

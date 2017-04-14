@@ -57,7 +57,7 @@ export class AddCourseComponent implements ICourseEdited, OnInit {
       id: courseId,
       name: this.currentCourse.name,
       duration: +this.currentCourse.duration,
-      createdDate: new Date(this.currentCourse.createdDate),
+      date: new Date(this.currentCourse.date),
       topRated: false,
       description: this.currentCourse.description,
     };
@@ -79,7 +79,7 @@ export class AddCourseComponent implements ICourseEdited, OnInit {
       id: null,
       name: null,
       description: null,
-      createdDate: null,
+      date: null,
       topRated: null,
       duration: null
     };
