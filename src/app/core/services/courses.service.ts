@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
 import { ICourse } from '../../pages/courses/iCourse.interface';
 
 import { FilterByNamePipe } from '../pipes/filterByName.pipe';
@@ -60,7 +60,7 @@ const coursesList: ICourse[] = [{
 export class CoursesService {
   private isPopupDisplayed;
   private deleteCourseId;
-  private courses: BehaviorSubject<ICourse[]> = new BehaviorSubject([]);
+  private courses: ReplaySubject<ICourse[]> = new ReplaySubject();
 
   constructor(
     private orderByNamePipe: FilterByNamePipe,
@@ -68,8 +68,11 @@ export class CoursesService {
     this.isPopupDisplayed = false;
   }
 
-  public get coursesStream(): Observable<ICourse[]> {
-    return this.courses.delay(2000);
+  public get coursesStream(): Observable<ICourse[]>  {
+    // return this.courses;
+    return  this.courses.map((data) => {
+      return data;
+    }).delay(2000);
   }
 
   public getCourses() {
