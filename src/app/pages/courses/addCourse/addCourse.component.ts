@@ -9,6 +9,7 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { DatePipe } from '@angular/common';
 
 import { AppState } from '../../../app.service';
 import { ICourse } from '../iCourse.interface';
@@ -22,7 +23,7 @@ import { ICourseEdited } from '../iCourseEdited.interface';
   providers: [
     CoursesService
   ],
-  styleUrls: [ './addCourse.component.scss' ],
+  styleUrls: ['./addCourse.component.scss'],
   templateUrl: './addCourse.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -52,7 +53,14 @@ export class AddCourseComponent implements ICourseEdited, OnInit {
 
   public createCourse(courseForm: NgForm) {
     const courseId = this.currentCourseId ? this.currentCourse.id : this.coursesService.courseCount;
-    const newCourse = Object.assign({}, this.currentCourse, {id: courseId});
+    const newCourse = {
+      id: courseId,
+      name: this.currentCourse.name,
+      duration: +this.currentCourse.duration,
+      date: new Date(this.currentCourse.date),
+      topRated: false,
+      description: this.currentCourse.description,
+    };
     if (this.currentCourse.id) {
       this.coursesService.updateCourses(newCourse);
     } else {
@@ -61,7 +69,7 @@ export class AddCourseComponent implements ICourseEdited, OnInit {
     this.router.navigate(['/']);
   }
 
-  public courseDataOutput (data: any) {
+  public courseDataOutput(data: any) {
     this.currentCourse = data;
   }
 
@@ -75,12 +83,12 @@ export class AddCourseComponent implements ICourseEdited, OnInit {
       topRated: null,
       duration: null
     };
-    if  (this.currentCourseId) {
+    if (this.currentCourseId) {
       this.coursesService.coursesStream.subscribe(
         (data: ICourse[]) => {
           this.currentCourse = data[0];
           this.ref.markForCheck();
-      });
+        });
     }
 
     if (this.currentCourseId) {

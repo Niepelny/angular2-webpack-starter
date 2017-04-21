@@ -1,4 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
+import { Observable, Subscription, Subject } from 'rxjs';
+import { TimerObservable } from 'rxjs/observable/TimerObservable';
+import _ from 'lodash';
+
 const users = [{
   user: 'user',
   password: 'user'
@@ -15,10 +19,14 @@ const users = [{
 
 @Injectable()
 export class LoginService {
-
+  public userEmmiter = new Subject();
   private loggedUser;
-  constructor () {
+  private subscription;
+  private ticks;
+
+  constructor() {
     this.loggedUser = localStorage.getItem('currentUser');
+    this.userEmmiter.next(this.loggedUser);
   }
 
   public checkLogin(value) {
@@ -28,13 +36,14 @@ export class LoginService {
       ) {
         this.setlocalStorageUser = value;
         this.loggedUser = { name: value.name };
+        this.userEmmiter.next(this.loggedUser);
         return true;
       }
       return false;
     }
   }
 
-  public isLoggedIn () {
+  public isLoggedIn() {
     return !!this.loggedUser;
   }
 
@@ -46,4 +55,5 @@ export class LoginService {
   private set setlocalStorageUser(user: any) {
     localStorage.setItem('currentUser', JSON.stringify({ name: user.name }));
   }
+
 }

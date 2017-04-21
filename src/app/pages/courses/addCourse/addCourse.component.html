@@ -1,8 +1,8 @@
 <div class="course">
-  {{currentCourse}}
-  <form class="course-form" (ngSubmit)="createCourse(courseForm)" #courseForm="ngForm" action="index.html" method="post">
+    {{currentCourse}}
+    <form class="course-form" (ngSubmit)="createCourse(courseForm)" #courseForm="ngForm" action="index.html" method="post">
 
-    <span class="custom-span" *ngIf="currentCourseId">
+        <span class="custom-span" *ngIf="currentCourseId">
       <label
         for="courseId"
         class="custom-span__label" >
@@ -18,7 +18,7 @@
         disabled
         ngModel>
     </span>
-    <span class="custom-span">
+        <span class="custom-span">
       <label
         for="courseName"
         class="custom-span__label" >
@@ -33,7 +33,7 @@
         value=""
         ngModel>
     </span>
-    <span class="custom-span">
+        <span class="custom-span">
       <label
         for="courseDescription"
         class="custom-span__label" >
@@ -48,7 +48,7 @@
         value=""
         ngModel>
     </span>
-    <span class="custom-span">
+        <span class="custom-span">
       <label
         for="courseDuration"
         class="custom-span__label" >
@@ -64,7 +64,7 @@
         value=""
         ngModel>
     </span>
-    <span class="custom-span">
+        <span class="custom-span">
       <label
         for="courseDate"
         class="custom-span__label" >
@@ -72,7 +72,7 @@
       </label>
       <input
         id="courseDate"
-        type="text"
+        type="date"
         class="custom-span__input"
         [(ngModel)]="currentCourse.date"
         name="currentCourse.date"
@@ -80,12 +80,10 @@
         placeholder="YYYY-MM-DD"
         ngModel>
     </span>
-    <div class="form-footer">
-      <button type="submit" name="button" class="btn form-footer__button">submit</button>
-    </div>
-  </form>
-  <app-edit 
-    [courseData]="currentModel"
-    (courseDataOutput)="courseDataOutput($event)">
+        <div class="form-footer">
+            <button type="submit" name="button" class="btn form-footer__button">submit</button>
+        </div>
+    </form>
+    <app-edit [courseData]="currentModel" (courseDataOutput)="courseDataOutput($event)">
     </app-edit>
 </div>

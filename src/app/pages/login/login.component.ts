@@ -6,7 +6,7 @@ import {
   EventEmitter,
   Output
 } from '@angular/core';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { AppState } from '../../app.service';
 import { LoginService } from '../../core/services/login.service';
 import { HeaderComponent } from '../header/header.component';
@@ -20,7 +20,7 @@ import { CanActivate, Router, ActivatedRoute } from '@angular/router';
   // We need to tell Angular's Dependency Injection which providers are in our app.
   providers: [],
   // Our list of styles in our component. We may add more to compose many styles together
-  styleUrls: [ './login.component.scss' ],
+  styleUrls: ['./login.component.scss'],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
   templateUrl: './login.component.html'
 })
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     public appState: AppState,
     public loginService: LoginService,
     private router: Router
-  ) {}
+  ) { }
 
   public onSubmit(e) {
     e.preventDefault();

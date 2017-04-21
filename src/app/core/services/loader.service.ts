@@ -1,18 +1,22 @@
 import { Injectable } from '@angular/core';
+import { ReplaySubject } from 'rxjs';
 
 @Injectable()
 export class LoaderService {
 
+  public loaderObservable: ReplaySubject<boolean> = new ReplaySubject(1);
   private isLoaderStatus;
-  constructor () {
+  constructor() {
+    this.isLoaderStatus = true;
+    // this.loaderObservable.next(this.isLoaderStatus);
+  }
+
+  public turnOnLoader() {
     this.isLoaderStatus = true;
   }
 
-  public get showLoader () {
-    return this.isLoaderStatus;
+  public turnOffLoader() {
+    this.isLoaderStatus = false;
   }
 
-  public set loaderStatus (loader: Boolean) {
-    this.isLoaderStatus = loader;
-  }
 }
