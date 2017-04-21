@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { ICourse } from '../../pages/courses/iCourse.interface';
 
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
+
 import { FilterByNamePipe } from '../pipes/filterByName.pipe';
 import _ from 'lodash';
 
@@ -58,14 +60,17 @@ const coursesList: ICourse[] = [{
 
 @Injectable()
 export class CoursesService {
+  public items;
   private isPopupDisplayed;
   private deleteCourseId;
   private courses: BehaviorSubject<ICourse[]> = new BehaviorSubject([]);
 
   constructor(
     private orderByNamePipe: FilterByNamePipe,
+    public af: AngularFire
   ) {
     this.isPopupDisplayed = false;
+    this.items = af.database.list('/items')
   }
 
   public get coursesStream(): Observable<ICourse[]> {

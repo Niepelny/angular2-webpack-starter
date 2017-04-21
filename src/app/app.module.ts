@@ -49,6 +49,8 @@ import { OrderByDatePipe } from './core/pipes/orderByDate.pipe';
 import { FilterByNamePipe } from './core/pipes/filterByName.pipe';
 import { ColorPipe } from './core/pipes/color.pipe.ts';
 
+import { AngularFireModule } from 'angularfire2';
+
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
@@ -61,11 +63,20 @@ type StoreType = {
   disposeOldHosts: () => void
 };
 
+export const firebaseConfig = {
+  apiKey: 'AIzaSyC3WHSwkL-6K3qB50_vaYMk_f_nm87kePE',
+  authDomain: 'angular-2-training-657da.firebaseapp.com',
+  databaseURL: 'https://angular-2-training-657da.firebaseio.com',
+  projectId: 'angular-2-training-657da',
+  storageBucket: 'angular-2-training-657da.appspot.com',
+  messagingSenderId: '175028819450'
+};
+
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
  */
 @NgModule({
-  bootstrap: [ AppComponent ],
+  bootstrap: [AppComponent],
   declarations: [
     AppComponent,
     HighlightDirective,
@@ -91,7 +102,8 @@ type StoreType = {
     SharedModule,
     PopupModule,
     HttpModule,
-    RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules }),
+    AngularFireModule.initializeApp(firebaseConfig)
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
@@ -105,7 +117,7 @@ export class AppModule {
   constructor(
     public appRef: ApplicationRef,
     public appState: AppState,
-  ) {}
+  ) { }
 
   public hmrOnInit(store: StoreType) {
     if (!store || !store.state) {
@@ -133,7 +145,7 @@ export class AppModule {
     // recreate root elements
     store.disposeOldHosts = createNewHosts(cmpLocation);
     // save input values
-    store.restoreInputValues  = createInputTransfer();
+    store.restoreInputValues = createInputTransfer();
     // remove styles
     removeNgStyles();
   }
