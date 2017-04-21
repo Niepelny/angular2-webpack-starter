@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
 import { ICourse } from '../../pages/courses/iCourse.interface';
 
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 
 import { FilterByNamePipe } from '../pipes/filterByName.pipe';
 import _ from 'lodash';
@@ -11,93 +11,99 @@ interface ICourseMock {
   name: string;
 }
 
-const coursesList: ICourse[] = [{
-  id: 1,
-  name: 'kurs 1',
-  duration: 40,
-  date: new Date('2017-04-03'),
-  description: `jakis opis At vero eos et accusamus et iusto odio
-  dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
-  atque corrupti quos dolores et quas molestias excepturi sint occaecati
-  cupiditate non provident, similique sunt in culpa qui officia deserunt
-   mollitia animi, id est laborum et dolorum fuga`,
-  topRated: true
-}, {
-  id: 2,
-  name: 'kurs 2',
-  duration: 45,
-  date: new Date('2017-04-27'),
-  description: `jakis At vero eos et
-   accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-   voluptatum deleniti atque corrupti quos dolores et quas molestias
-    excepturi sint occaecati cupiditate non provident, similique sunt in
-    culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga`,
-  topRated: true
-}, {
-  id: 3,
-  name: 'kurs 3',
-  duration: 60,
-  date: new Date('2017-03-17'),
-  description: 'jakis opis',
-  topRated: false
-}, {
-  id: 4,
-  name: 'kurs 4',
-  duration: 132,
-  date: new Date('2017-04-15'),
-  description: 'jakis opis data',
-  topRated: false
-}, {
-  id: 5,
-  name: 'kurs 5',
-  duration: 94,
-  date: new Date('2017-03-20'),
-  description: `jakis opis jakis opis jakis opisjakis opis
-  jakis opis jakis opis jakis opis jakis opis jakis opisjakis
-   opisjakis opisjakis opisjakis opisjakis opis`,
-  topRated: true
-}];
-
 @Injectable()
 export class CoursesService {
   public items;
+  public pageCount: number = 1;
   private isPopupDisplayed;
   private deleteCourseId;
   private courses: ReplaySubject<ICourse[]> = new ReplaySubject();
+  private limit: BehaviorSubject<number> = new BehaviorSubject<number>(10);
+  private coursesList: ICourse[] = [];
+  private courseFireBase: FirebaseObjectObservable<ICourse[]>;
 
   constructor(
     private orderByNamePipe: FilterByNamePipe,
     public af: AngularFire
   ) {
     this.isPopupDisplayed = false;
-    this.items = af.database.list('/items')
+    console.log('k')
+    this.items = this.af.database.list('/courses', {
+      query: {
+        limitToFirst: this.limit
+      }
+    }).subscribe((data) => {
+      // Found the last key
+      console.log('----')
+      console.log('tutaj')
+      console.log(this.pageCount)
+      console.log(data)
+      this.coursesList = data;
+      this.getCourses();
+    });
+    // this.items.forEach((data) => {
+    //   console.log('tutaj2', data)
+    //   this.coursesList = data;
+    // })
+    // this.items.map((data) => {
+    //   console.log('tutaj1');
+    //   console.log(data);
+    // })
   }
 
-  public get coursesStream(): Observable<ICourse[]>  {
+  public get coursesStream(): Observable<ICourse[]> {
     // return this.courses;
-    return  this.courses.map((data) => {
+    return this.courses.map((data) => {
+      console.log('tutaj');
+      console.log(data);
       return data;
-    }).delay(2000);
+    }).delay(0);
+  }
+  public setNextPage() {
+    this.pageCount += 1;
+    this.limit.next(this.limit.getValue() + 10);
   }
 
   public getCourses() {
-    this.courses.next(coursesList);
+    console.log('1 ', this.coursesList)
+    this.courses.next(this.coursesList);
   }
 
   public createNewCourse(course: ICourse) {
-    coursesList.push(course);
-    this.courses.next(coursesList);
+    console.log(course);
+    const queryList = this.af.database.list('/courses', {
+      query: {
+        limitToLast: 1,
+        orderByChild: 'id',
+        orderByKey: true
+      }
+    }).subscribe((data: any) => {
+      // Found the last key
+      debugger;
+      const items = this.af.database.list('/courses');
+      course.id = +data.id;
+      items.push(course);
+    });
+
+    // this.items.push(course);
+    // this.getCourses();
+    // this.courses.next(this.coursesList);
+  }
+  private pushCourse () {
+    const items = this.af.database.list('/courses');
+    items.push(course);
   }
 
   public getCourse(id: number) {
-    const selectedElement = coursesList.find((data) => {
+    const selectedElement = this.coursesList.find((data) => {
       return data.id === id;
     });
     this.courses.next([selectedElement]);
   }
 
   public deleteCourse(courseId): boolean {
-    _.pullAllBy(coursesList, [{ id: courseId }], 'id');
+    // _.pullAllBy(this.coursesList, [{ id: courseId }], 'id');
+
     return false;
   }
 
@@ -105,11 +111,11 @@ export class CoursesService {
     return !!this.isPopupDisplayed;
   }
 
-  public orderBy (obj: ICourseMock) {
-    if ( obj.name === '') {
-      this.courses.next(coursesList);
+  public orderBy(obj: ICourseMock) {
+    if (obj.name === '') {
+      this.courses.next(this.coursesList);
     } else {
-      const result: ICourse[] =  this.orderByNamePipe.transform(coursesList, obj);
+      const result: ICourse[] = this.orderByNamePipe.transform(this.coursesList, obj);
       this.courses.next(result);
     }
   }
@@ -122,6 +128,7 @@ export class CoursesService {
   }
 
   public get courseCount(): number {
-    return coursesList.length + 1;
+    return this.coursesList.length + 1;
   }
+
 }

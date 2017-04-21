@@ -46,6 +46,7 @@ export class CourseComponent implements OnInit {
     private popupService: PopupService,
   ) {
     console.log('CoursesComponent');
+    console.log(this.courseData)
   }
 
   public editCourses() {
@@ -54,6 +55,7 @@ export class CourseComponent implements OnInit {
 
   public ngOnInit() {
     console.log('course generator');
+    console.log(this.courseData)
   }
 
   public deleteCurse(id) {

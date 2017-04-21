@@ -110,6 +110,10 @@ export class HomeComponent implements OnInit {
     this.coursesService.getCourses();
   }
 
+  public loadMore() {
+    this.coursesService.setNextPage();
+  }
+
   public set coursesListsetter(list: ICourse[]) {
     this.coursesList = list;
     this.showLoader = false;
