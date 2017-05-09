@@ -71,32 +71,41 @@ export class CoursesService {
 
   public createNewCourse(course: ICourse) {
     console.log(course);
-    const queryList = this.af.database.list('/courses', {
-      query: {
-        limitToLast: 1,
-        orderByChild: 'id',
-        orderByKey: true
-      }
-    }).subscribe((data: any) => {
-      // Found the last key
-      debugger;
-      const items = this.af.database.list('/courses');
-      course.id = +data.id;
-      items.push(course);
-    });
 
-    // this.items.push(course);
+    // const queryList = this.af.database.list('/courses', {
+    //   query: {
+    //     limitToLast: 1,
+    //     orderByChild: 'id',
+    //     orderByKey: true
+    //   }
+    // }).subscribe((data: any) => {
+    //   // Found the last key
+    //   debugger;
+    //   const items = this.af.database.list('/courses');
+    //   course._id = +data._id;
+    //   items.push(course);
+    // });
+    const newCourse = {
+      name: course.name,
+      duration: course.duration,
+      date: course.date,
+      topRated: course.topRated,
+      description: course.description
+    }
+
+    this.items.push(newCourse);
     // this.getCourses();
     // this.courses.next(this.coursesList);
   }
-  private pushCourse () {
+  private pushCourse() {
     const items = this.af.database.list('/courses');
-    items.push(course);
+    console.log(items)
+    // items.push(course);
   }
 
   public getCourse(id: number) {
     const selectedElement = this.coursesList.find((data) => {
-      return data.id === id;
+      return data._id === id;
     });
     this.courses.next([selectedElement]);
   }
@@ -121,8 +130,8 @@ export class CoursesService {
   }
 
   public updateCourses(course: ICourse): boolean {
-    this.deleteCourse(+course.id);
-    const newCourse = Object.assign({}, course, { id: +course.id });
+    this.deleteCourse(+course._id);
+    const newCourse = Object.assign({}, course, { id: +course._id });
     this.createNewCourse(newCourse);
     return true;
   }

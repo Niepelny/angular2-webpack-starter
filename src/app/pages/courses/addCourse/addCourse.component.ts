@@ -52,16 +52,16 @@ export class AddCourseComponent implements ICourseEdited, OnInit {
   };
 
   public createCourse(courseForm: NgForm) {
-    const courseId = this.currentCourseId ? this.currentCourse.id : this.coursesService.courseCount;
+    const courseId = this.currentCourseId ? this.currentCourse._id : this.coursesService.courseCount;
     const newCourse = {
-      id: courseId,
+      _id: courseId,
       name: this.currentCourse.name,
       duration: +this.currentCourse.duration,
       date: new Date(this.currentCourse.date),
       topRated: false,
       description: this.currentCourse.description,
     };
-    if (this.currentCourse.id) {
+    if (this.currentCourse._id) {
       this.coursesService.updateCourses(newCourse);
     } else {
       this.coursesService.createNewCourse(newCourse);
@@ -76,7 +76,7 @@ export class AddCourseComponent implements ICourseEdited, OnInit {
   public ngOnInit() {
     this.currentCourseId = this.route.snapshot.params['id'];
     this.currentCourse = {
-      id: null,
+      _id: null,
       name: null,
       description: null,
       date: null,

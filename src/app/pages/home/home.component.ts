@@ -140,7 +140,7 @@ export class HomeComponent implements OnInit {
   public addMutable() {
     // This function was created only for training purpose
     const mutableCourse: ICourse = {
-      id: 6,
+      _id: 6,
       name: 'mutable',
       duration: 32,
       date: new Date(),

@@ -8,8 +8,6 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
-import { AppState } from '../../../app.service';
 import { ICourse } from '../iCourse.interface';
 
 @Component({
@@ -27,7 +25,7 @@ export class EditCourseComponent implements OnInit {
   ) {
     console.log('test');
     this.courseData = {
-      id: null,
+      _id: null,
       name: null,
       duration: null,
       date: null,
