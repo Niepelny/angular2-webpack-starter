@@ -51,6 +51,10 @@ export class CoursesService {
     // })
   }
 
+  public get getLastId() {
+    return this.coursesList[this.coursesList.length].id;
+  }
+
   public get coursesStream(): Observable<ICourse[]> {
     // return this.courses;
     return this.courses.map((data) => {
@@ -71,6 +75,23 @@ export class CoursesService {
 
   public createNewCourse(course: ICourse) {
     console.log(course);
+    debugger;
+    const queryList = this.af.database.list('/courses');
+    queryList.push(Object.assign({}, {_id: this.getLastId}));
+
+    // const queryList = this.af.database.list('/courses', {
+    //   query: {
+    //     limitToLast: 1,
+    //     orderByChild: 'id',
+    //     orderByKey: true
+    //   }
+    // }).subscribe((data: any) => {
+    //   // Found the last key
+    //   debugger;
+    //   const items = this.af.database.list('/courses');
+    //   course.id = +data.id;
+    //   items.push(course);
+    // });
 
     // const queryList = this.af.database.list('/courses', {
     //   query: {
@@ -97,11 +118,7 @@ export class CoursesService {
     // this.getCourses();
     // this.courses.next(this.coursesList);
   }
-  private pushCourse() {
-    const items = this.af.database.list('/courses');
-    console.log(items)
-    // items.push(course);
-  }
+
 
   public getCourse(id: number) {
     const selectedElement = this.coursesList.find((data) => {
