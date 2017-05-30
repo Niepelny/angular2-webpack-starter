@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
 import { ICourse } from '../../pages/courses/iCourse.interface';
 
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 
 import { FilterByNamePipe } from '../pipes/filterByName.pipe';
 import _ from 'lodash';
@@ -15,6 +15,7 @@ interface ICourseMock {
 export class CoursesService {
   public items;
   public pageCount: number = 1;
+  public count: number;
   private isPopupDisplayed;
   private deleteCourseId;
   private courses: ReplaySubject<ICourse[]> = new ReplaySubject();
@@ -27,28 +28,27 @@ export class CoursesService {
     public af: AngularFire
   ) {
     this.isPopupDisplayed = false;
-    console.log('k')
     this.items = this.af.database.list('/courses', {
       query: {
-        limitToFirst: this.limit
+        limitToFirst: this.limit,
+        orderByKey: true,
       }
     }).subscribe((data) => {
       // Found the last key
-      console.log('----')
-      console.log('tutaj')
-      console.log(this.pageCount)
-      console.log(data)
+
       this.coursesList = data;
+
       this.getCourses();
     });
-    // this.items.forEach((data) => {
-    //   console.log('tutaj2', data)
-    //   this.coursesList = data;
-    // })
-    // this.items.map((data) => {
-    //   console.log('tutaj1');
-    //   console.log(data);
-    // })
+    this.items = this.af.database.list('/courses', {
+      query: {
+        limitToLast: 1
+      }
+    }).subscribe((data) => {
+      // Found the last key
+      this.count = data[0]._id;
+    });
+
   }
 
   public get getLastId() {
@@ -56,10 +56,7 @@ export class CoursesService {
   }
 
   public get coursesStream(): Observable<ICourse[]> {
-    // return this.courses;
     return this.courses.map((data) => {
-      console.log('tutaj');
-      console.log(data);
       return data;
     }).delay(0);
   }
@@ -69,57 +66,13 @@ export class CoursesService {
   }
 
   public getCourses() {
-    console.log('1 ', this.coursesList)
     this.courses.next(this.coursesList);
   }
 
   public createNewCourse(course: ICourse) {
-    console.log(course);
-
     const queryList = this.af.database.list('/courses');
-    // queryList.push(Object.assign({}, {_id: this.getLastId}, course));
-    queryList.push( course);
-    debugger;
-    // const queryList = this.af.database.list('/courses', {
-    //   query: {
-    //     limitToLast: 1,
-    //     orderByChild: 'id',
-    //     orderByKey: true
-    //   }
-    // }).subscribe((data: any) => {
-    //   // Found the last key
-    //   debugger;
-    //   const items = this.af.database.list('/courses');
-    //   course.id = +data.id;
-    //   items.push(course);
-    // });
-
-    // const queryList = this.af.database.list('/courses', {
-    //   query: {
-    //     limitToLast: 1,
-    //     orderByChild: 'id',
-    //     orderByKey: true
-    //   }
-    // }).subscribe((data: any) => {
-    //   // Found the last key
-    //   debugger;
-    //   const items = this.af.database.list('/courses');
-    //   course._id = +data._id;
-    //   items.push(course);
-    // });
-    // const newCourse = {
-    //   name: course.name,
-    //   duration: course.duration,
-    //   date: course.date,
-    //   topRated: course.topRated,
-    //   description: course.description
-    // }
-
-    // this.items.push(newCourse);
-    // this.getCourses();
-    // this.courses.next(this.coursesList);
+    queryList.push(course);
   }
-
 
   public getCourse(id: number) {
     const selectedElement = this.coursesList.find((data) => {
@@ -129,8 +82,8 @@ export class CoursesService {
   }
 
   public deleteCourse(courseId): boolean {
-    // _.pullAllBy(this.coursesList, [{ id: courseId }], 'id');
-
+    const queryList = this.af.database.object(`/courses/${courseId}`);
+    queryList.remove();
     return false;
   }
 
@@ -147,10 +100,9 @@ export class CoursesService {
     }
   }
 
-  public updateCourses(course: ICourse): boolean {
-    this.deleteCourse(+course._id);
-    const newCourse = Object.assign({}, course, { id: +course._id });
-    this.createNewCourse(newCourse);
+  public updateCourses(course: any, key): boolean {
+    const queryList = this.af.database.object(`/courses/${key}`);
+    queryList.update(course);
     return true;
   }
 

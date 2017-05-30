@@ -31,6 +31,7 @@ export class AddCourseComponent implements ICourseEdited, OnInit {
   public currentModel: Object;
   public currentCourse: ICourse;
   public currentCourseId: Number;
+  private key: string;
 
   constructor(
     public coursesService: CoursesService,
@@ -43,7 +44,7 @@ export class AddCourseComponent implements ICourseEdited, OnInit {
   }
 
   public updateCourses() {
-    this.coursesService.updateCourses(this.currentCourse);
+    this.coursesService.updateCourses(this.currentCourse, this.key);
     this.router.navigate(['/']);
   };
 
@@ -52,7 +53,8 @@ export class AddCourseComponent implements ICourseEdited, OnInit {
   };
 
   public createCourse(courseForm: NgForm) {
-    const courseId = this.currentCourseId ? this.currentCourse._id : this.coursesService.courseCount;
+    const courseId = this.currentCourseId ? this.currentCourse._id : this.coursesService.count + 1;
+    this.key = this.currentCourseId ? this.currentCourse.$key : null;
     const newCourse = {
       _id: courseId,
       name: this.currentCourse.name,
@@ -62,7 +64,7 @@ export class AddCourseComponent implements ICourseEdited, OnInit {
       description: this.currentCourse.description,
     };
     if (this.currentCourse._id) {
-      this.coursesService.updateCourses(newCourse);
+      this.coursesService.updateCourses(newCourse, this.key);
     } else {
       this.coursesService.createNewCourse(newCourse);
     }

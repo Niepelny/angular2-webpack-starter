@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IPopup } from '../logic/iPopup.interface';
+import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 
 @Injectable()
 export class PopupService {
@@ -8,13 +9,15 @@ export class PopupService {
   private confirmCallback: any;
   private rejectCallback: any;
   private Id;
-  constructor() {
+  constructor(
+    public af: AngularFire
+  ) {
     this.isPopupShow = false;
   }
 
   public setUpPopup(
     value: boolean,
-    id: number,
+    id: any,
     popupData: IPopup,
     confirmCallback: any,
     rejectCallback: any) {
@@ -38,7 +41,7 @@ export class PopupService {
   }
 
   public confirmAction() {
-    this.confirmCallback(+this.Id);
+    this.confirmCallback(this.Id);
     this.isPopupShowChange = false;
   }
 

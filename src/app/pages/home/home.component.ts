@@ -104,8 +104,6 @@ export class HomeComponent implements OnInit {
   public getCoursesList() {
     this.coursesService.coursesStream.subscribe(
       (data: ICourse[]) => {
-
-        console.log('')
         this.coursesListsetter = data;
         this.ref.markForCheck();
         console.log(this.coursesList);

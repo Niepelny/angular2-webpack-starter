@@ -24,6 +24,6 @@
     <a [routerLink]="['./editCourse', courseData._id]" class="btn" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
       Edit Course
     </a>
-    <a href="#" class="btn" (click)="deleteCurse(courseData.id)">Delete</a>
+    <a href="#" class="btn" (click)="deleteCurse(courseData.$key)">Delete {{courseData.$key}}</a>
   </div>
 </div>

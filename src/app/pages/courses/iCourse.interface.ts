@@ -5,4 +5,5 @@ export interface ICourse {
   date: Date;
   topRated: boolean;
   description: string;
+  $key?: string;
 }
