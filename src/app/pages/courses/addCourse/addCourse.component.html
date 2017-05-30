@@ -59,8 +59,14 @@
         name="currentCourse.description"
         value=""
         required
+        #description="ngModel"
         ngModel>
     </span>
+    <div *ngIf="description.errors" class="alert alert-danger">
+      <div [hidden]="!description.errors.required">
+        Description is required
+      </div>
+    </div>
     <span class="custom-span">
       <label
         for="courseDuration"
@@ -75,8 +81,18 @@
         name="currentCourse.duration"
         placeholder="minutes"
         value=""
+        required
+        #duration="ngModel"
         ngModel>
     </span>
+    <div *ngIf="duration.errors" class="alert alert-danger">
+      <div [hidden]="!duration.errors.required">
+        Duration is required
+      </div>
+      <div [hidden]="!duration.errors.number">
+        Duration should be number
+      </div>
+    </div>
     <span class="custom-span">
       <label
         for="courseDate"
@@ -91,8 +107,18 @@
         name="currentCourse.date"
         value=""
         placeholder="YYYY-MM-DD"
+        required
+        #date="ngModel"
         ngModel>
     </span>
+    <div *ngIf="date.errors" class="alert alert-danger">
+      <div [hidden]="!date.errors.required">
+        Date is required
+      </div>
+      <div [hidden]="!date.errors.date">
+        This is not valid date
+      </div>
+    </div>
     <div class="form-footer">
       <button type="submit" name="button" class="btn form-footer__button">submit</button>
     </div>
