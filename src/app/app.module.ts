@@ -55,6 +55,8 @@ import { DateValidatorDirective } from './core/directives/dateValidator.directiv
 
 import { AngularFireModule } from 'angularfire2';
 import { Ng2BreadcrumbModule, BreadcrumbService } from 'ng2-breadcrumb/ng2-breadcrumb';
+import { StoreModule } from '@ngrx/store';
+import { counterReducer } from './core/services/login.service';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -112,7 +114,8 @@ export const firebaseConfig = {
     HttpModule,
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules }),
     AngularFireModule.initializeApp(firebaseConfig),
-    Ng2BreadcrumbModule.forRoot()
+    Ng2BreadcrumbModule.forRoot(),
+    StoreModule.provideStore({ counter: counterReducer })
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,

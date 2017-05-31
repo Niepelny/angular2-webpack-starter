@@ -7,6 +7,13 @@ import { AppState } from '../app.service';
 import { LoginService } from '../core/services/login.service';
 import { CanActivate, Router, ActivatedRoute } from '@angular/router';
 import _ from 'lodash';
+import { Observable, Subject } from 'rxjs';
+import { ActionReducer, Action, Store } from '@ngrx/store';
+
+interface IUser {
+  user: string;
+  password: string;
+}
 
 @Component({
   // The selector is what angular internally uses
@@ -27,13 +34,17 @@ export class HeaderComponent implements OnInit {
   public name = 'Angular 2 Webpack Starter';
   public url = 'http://localhost:3000';
   private isLoggedUser: boolean = false;
+  public userEmmiter = new Observable<any>();
   // TypeScript public modifiers
   constructor(
     public loginService: LoginService,
     private router: Router,
     private route: ActivatedRoute,
-    public appState: AppState
-  ) { };
+    public appState: AppState,
+    private store: Store<IUser>
+  ) {
+    this.userEmmiter = store.select('counter');
+  };
 
   public get isLogged() {
     return this.isLoggedUser;
@@ -44,6 +55,9 @@ export class HeaderComponent implements OnInit {
     this.loginService.logOut();
   }
   public ngOnInit() {
+    this.userEmmiter.subscribe((data) => {
+      debugger;
+    })
     const getData = this.loginService.userEmmiter.subscribe((value) => {
       if (!_.isEmpty(value)) {
         this.isLoggedUser = true;

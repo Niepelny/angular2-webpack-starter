@@ -4,6 +4,7 @@ import { TimerObservable } from 'rxjs/observable/TimerObservable';
 import _ from 'lodash';
 
 import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
+import { ActionReducer, Action, Store } from '@ngrx/store';
 
 const users = [{
   user: 'user',
@@ -22,6 +23,25 @@ interface IUser {
   user: string;
   password: string;
 }
+interface AppState {
+  counter: number;
+}
+
+export const SET = 'SET';
+export const RESET = 'RESET';
+
+export function counterReducer(state: number = 0, action: Action) {
+  switch (action.type) {
+    case SET:
+      return state + 1;
+
+    case RESET:
+      return 0;
+
+    default:
+      return state;
+  }
+}
 
 @Injectable()
 export class LoginService {
@@ -30,10 +50,11 @@ export class LoginService {
   private users: IUser[];
 
   constructor(
-    public af: AngularFire
+    public af: AngularFire,
+    private store: Store<AppState>
   ) {
     this.loggedUser = localStorage.getItem('currentUser');
-    this.userEmmiter.next(this.loggedUser);
+    this.userEmmiter.next(this.loggedUser);;
     this.af.database.list('/users').subscribe((data: IUser[]) => {
       this.users = data;
     });
@@ -48,6 +69,7 @@ export class LoginService {
 
         this.loggedUser = { name: value.name };
         this.userEmmiter.next({ name: 'user1' });
+        this.store.dispatch({ type: SET });
         return true;
       }
 
