@@ -50,6 +50,8 @@ import { FilterByNamePipe } from './core/pipes/filterByName.pipe';
 import { ColorPipe } from './core/pipes/color.pipe.ts';
 import { FilterOutdatedPipe } from './core/pipes/filterOutDated.pipe.ts';
 
+import { DateValidatorDirective } from './core/directives/dateValidator.directive';
+
 import { AngularFireModule } from 'angularfire2';
 
 // Application wide providers
@@ -83,6 +85,7 @@ export const firebaseConfig = {
     HighlightDirective,
     HomeComponent,
     HeaderComponent,
+    DateValidatorDirective,
     FooterComponent,
     AddCourseComponent,
     LoaderComponent,

@@ -9,12 +9,11 @@ import {
 
 import { AbstractControl, Validator } from '@angular/forms';
 
-import { DatePipe } from '@angular/common';
 @Directive({
-  selector: '[dateValidator]',
+  selector: 'dateValidator',
   providers: []
 })
-export class DateValidator implements Validator, OnChanges {
+export class DateValidatorDirective implements Validator, OnChanges {
   @Input() forbiddenName: string;
   // private valFn = Validators.nullValidator;
   ngOnChanges(changes: SimpleChanges): void {
@@ -30,7 +29,7 @@ export class DateValidator implements Validator, OnChanges {
     if (control.value.match(/[0-9{2}].[0-9{2}].[0-9{4}]/)) {
       return null;
     } else {
-      return {'invalidEmailAddress': true };
+      return { invalidDate: true };
     }
   }
 
