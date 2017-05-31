@@ -34,6 +34,7 @@ import { CourseComponent } from './pages/courses/course';
 import { AddCourseComponent } from './pages/courses/addCourse';
 import { LoaderComponent } from './core/components/loader';
 import { EditCourseComponent } from './pages/courses/editCourse';
+import { PageNotFoundComponent } from './pages/pageNotFound';
 import { HeaderComponent } from './header';
 import { FooterComponent } from './footer';
 import { CourseNavigationComponent } from './pages/coursesnavigation';
@@ -53,6 +54,7 @@ import { FilterOutdatedPipe } from './core/pipes/filterOutDated.pipe.ts';
 import { DateValidatorDirective } from './core/directives/dateValidator.directive';
 
 import { AngularFireModule } from 'angularfire2';
+import { Ng2BreadcrumbModule, BreadcrumbService } from 'ng2-breadcrumb/ng2-breadcrumb';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -89,6 +91,7 @@ export const firebaseConfig = {
     FooterComponent,
     AddCourseComponent,
     LoaderComponent,
+    PageNotFoundComponent,
     FilterByNamePipe,
     EditCourseComponent,
     CourseComponent,
@@ -108,13 +111,15 @@ export const firebaseConfig = {
     PopupModule,
     HttpModule,
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules }),
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    Ng2BreadcrumbModule.forRoot()
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     APP_PROVIDERS,
     LoaderService,
-    FilterByNamePipe
+    FilterByNamePipe,
+    BreadcrumbService
   ]
 })
 export class AppModule {

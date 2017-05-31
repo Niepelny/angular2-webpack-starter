@@ -1,0 +1,8 @@
+.page-not-found {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  &__beep {
+    margin: auto;
+  }
+}

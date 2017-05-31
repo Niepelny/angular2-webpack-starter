@@ -4,11 +4,16 @@ import { LoginComponent } from './pages/login';
 import { AddCourseComponent } from './pages/courses/addCourse';
 import { NoContentComponent } from './no-content';
 import { DataResolver } from './app.resolver';
+import { PageNotFoundComponent } from './pages/pageNotFound';
 
 export const ROUTES: Routes = [
   {
-    path: '',
+    path: 'courses',
     component: HomeComponent
+  }, {
+    path: '',
+    redirectTo: '/courses',
+    pathMatch: 'full'
   }, {
     path: 'home',
     component: HomeComponent
@@ -16,16 +21,16 @@ export const ROUTES: Routes = [
     path: 'login',
     component: LoginComponent
   }, {
-    path: 'addCourse',
+    path: 'courses/new',
     component: AddCourseComponent
   }, {
-    path: 'editCourse/:id',
+    path: 'courses/:id',
     component: AddCourseComponent,
     data: {
       type: 'edit'
     }
   }, {
     path: '**',
-    component: NoContentComponent
+    component: PageNotFoundComponent
   },
 ];

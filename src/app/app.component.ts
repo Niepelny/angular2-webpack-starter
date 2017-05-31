@@ -7,6 +7,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { AppState } from './app.service';
+import { Ng2BreadcrumbModule, BreadcrumbService } from 'ng2-breadcrumb/ng2-breadcrumb';
 
 /*
  * App Component
@@ -20,6 +21,7 @@ import { AppState } from './app.service';
   ],
   template: `
     <app-header></app-header>
+    <breadcrumb></breadcrumb>
     <main>
       <router-outlet></router-outlet>
     </main>
@@ -35,8 +37,9 @@ export class AppComponent implements OnInit {
   public url = 'https://twitter.com/AngularClass';
 
   constructor(
-    public appState: AppState
-  ) {}
+    public appState: AppState,
+    private breadcrumbService: BreadcrumbService
+  ) { }
 
   public ngOnInit() {
     console.log('Initial App State', this.appState.state);
